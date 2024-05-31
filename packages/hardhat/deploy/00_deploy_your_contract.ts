@@ -42,7 +42,9 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
   console.log(`yarn hardhat verify "${contractAddress}" --network ${network}`);
 
   // await donationContract.createCampaign("Test", "0x5711a5D8e1dB96C9db0AAF3c3CEfB4403B5D230D", 100);
-  await donationContract.donate(["0x865981CAd2E01237A47f765f46e3E19F3a1cdfCC"],[1],0);
+  // await donationContract.donate(["0x865981CAd2E01237A47f765f46e3E19F3a1cdfCC"],[1],0);
+    await donationContract.closeCampaign(0);
+
 };
 
 export default deployDonationContract;
