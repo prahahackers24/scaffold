@@ -22,19 +22,23 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ### Eigenlayer - Best use of EigenLayer AVS
 
+We created our own Eigenlayer AVS.
+
+Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this.
+
 ### Uniswap Foundation - Hook Features
 
 ### The Graph - Best New Subgraph
 
-## Linea - Build any dapp on Linea
+### Linea - Build any dapp on Linea
 
-## Mantle - Best DeFi project
+### Mantle - Best DeFi project
 
-## Optimism - Prototype a Superchain Superpower
+### Optimism - Prototype a Superchain Superpower
 
-## Polygon - Launch a Creative MVP on Polygon Cardona
+### Polygon - Launch a Creative MVP on Polygon Cardona
 
-## Zircuit - Best Hackathon Project on Zircuit
+### Zircuit - Best Hackathon Project on Zircuit
 
 ## Next steps
 
@@ -47,7 +51,9 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 - [Demo video]()
 - [Github ](https://github.com/prahahackers24/scaffold)
 
-### Verified smart contracts
+### Verified Smart Contracts
+
+#### Donation contract
 
 - [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
@@ -55,6 +61,8 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 - [Smart contract on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+
+#### Eigenlayer Smart Contracts
 
 ## Team
 
