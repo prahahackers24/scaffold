@@ -12,7 +12,7 @@ interface CardProps {
  */
 export const Card: React.FC<CardProps> = ({ imgSrc, title, description }) => {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card bg-base-100 shadow-xl m-2 p-0">
       <figure>
         <img src={imgSrc} alt="Shoes" />
       </figure>
