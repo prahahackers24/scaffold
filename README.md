@@ -20,11 +20,21 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ###
 
-### Eigenlayer -
+### Eigenlayer - Best use of EigenLayer AVS
 
-### UniSwap -
+### Uniswap Foundation - Hook Features
 
-### The Graph -
+### The Graph - Best New Subgraph
+
+## Linea - Build any dapp on Linea
+
+## Mantle - Best DeFi project
+
+## Optimism - Prototype a Superchain Superpower
+
+## Polygon - Launch a Creative MVP on Polygon Cardona
+
+## Zircuit - Best Hackathon Project on Zircuit
 
 ## Next steps
 
@@ -32,7 +42,7 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ## Links
 
-- [Vercel deployment]()
+- [Vercel deployment](https://donationappreciation.vercel.app/)
 - [Presentation slides]()
 - [Demo video]()
 - [Github ](https://github.com/prahahackers24/scaffold)
