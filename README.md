@@ -1,81 +1,55 @@
-# 🏗 Scaffold-ETH 2
+# 🏗 Donation Appreciation
 
 <h4 align="center">
+![logo](logo.png)
   <a href="https://docs.scaffoldeth.io">Documentation</a> |
   <a href="https://scaffoldeth.io">Website</a>
 </h4>
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and USDC target for the donation. When the donation hits the target (in USDC), UniSwap hooks are used to swap all tokens for USDC, before transferring the USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+⚙️ Built using EigenLayer, The Graph, Uniswap NextJS, Hardhat, and Wagmi.
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+- 🗳️ **Quickly create a donation campaign**: On our frontend it's easy to setup a new campaign, just define a a campaign name, set a target (in $USDC) and you're ready to go.
+- 🪝 **New Uniswap hooks**: TODO
+- 🪙 **Accept all ERC20**: Donations can accept any ERC20 tokens, which will be swapped to $USDC at the end of the campaign.
+- 📈 **Multiple ways to hit target**: Reach your donation targets either by new donations or by increase in token price of current donations.
+- 🔐 **Secured with Eigenlayer AVS**: We use a custom EigenLayer AVS to verify the target is reached before swapping all ERC20 tokens to $USDC.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+## Hackathon tracks
 
-## Requirements
+###
 
-Before you begin, you need to install the following tools:
+### Eigenlayer -
 
-- [Node (>= v18.17)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+### UniSwap -
 
-## Quickstart
+### The Graph -
 
-To get started with Scaffold-ETH 2, follow the steps below:
+## Next steps
 
-1. Clone this repo & install dependencies
+- Use new AVS to filter on donation creators (only accept legitimate fundraisers)
 
-```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
-yarn install
-```
+## Links
 
-2. Run a local network in the first terminal:
+- [Vercel deployment]()
+- [Presentation slides]()
+- [Demo video]()
+- [Github ](https://github.com/prahahackers24/scaffold)
 
-```
-yarn chain
-```
+### Verified smart contracts
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+- [Smart contract on Holesky](https://holesky.etherscan.io/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
+- [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
+- [Smart contract on Linea Testnet]()
+- [Smart contract on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
+- [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
+- [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
 
-3. On a second terminal, deploy the test contract:
+## Team
 
-```
-yarn deploy
-```
+This project was build at EthPrague 2024 by:
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
-yarn start
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-**What's next**:
-
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
-- Edit your smart contract test in: `packages/hardhat/test`. To run test use `yarn hardhat:test`
-
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+- [AlexAstro](https://x.com/_alexastro/)
+- [arjanjohan](https://x.com/arjanjohan/)
+- [JacobJelen.eth](https://x.com/jacobjelen)
