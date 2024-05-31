@@ -39,11 +39,7 @@ contract DonationContract {
 
 		for (uint i = 0; i < _tokenAddresses.length; i++) {
 			IERC20 token = IERC20(_tokenAddresses[i]);
-			token.transferFrom(
-				msg.sender,
-				campaign.campaignOwner, // TODO: should go to this contract adress
-				_tokenAmounts[i]
-			);
+			token.transferFrom(msg.sender, address(this), _tokenAmounts[i]);
 			campaign.tokenAmounts[_tokenAddresses[i]] += _tokenAmounts[i];
 		}
 	}
