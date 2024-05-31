@@ -117,7 +117,7 @@ const config: HardhatUserConfig = {
       },
       {
         network: "polygonZkEvmTestnet",
-        chainId: 1442, // Example Chain ID, verify and update
+        chainId: 2442, // Example Chain ID, verify and update
         urls: {
           apiURL: "https://api-testnet-zkevm.polygonscan.com/api",
           browserURL: "https://testnet-zkevm.polygonscan.com",
@@ -127,8 +127,8 @@ const config: HardhatUserConfig = {
         network: "linea",
         chainId: 59141, // Example Chain ID, verify and update
         urls: {
-          apiURL: "https://api.linea.build/api",
-          browserURL: "https://linea.build",
+          apiURL: "https://linea-sepolia.infura.io/v3/",
+          browserURL: "https://sepolia.lineascan.build",
         },
       },
       {

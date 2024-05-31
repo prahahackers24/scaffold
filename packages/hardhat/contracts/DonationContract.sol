@@ -27,12 +27,12 @@ contract DonationContract {
 
 	function donate(
 		address[] memory _tokenAddresses,
-		uint[] memory _amounts,
+		uint[] memory _tokenAmounts,
 		uint _campaignId
 	) public payable {
 		require(isCampaignLive[_campaignId], "Campaign is not live");
 		require(
-			_tokenAddresses.length == _amounts.length,
+			_tokenAddresses.length == _tokenAmounts.length,
 			"Array length mismatch"
 		);
 
@@ -40,7 +40,7 @@ contract DonationContract {
 
 		for (uint i = 0; i < _tokenAddresses.length; i++) {
 			IERC20 token = IERC20(_tokenAddresses[i]);
-			token.transferFrom(msg.sender, donatee, _amounts[i]);
+			token.transferFrom(msg.sender, donatee, _tokenAmounts[i]);
 		}
 	}
 
