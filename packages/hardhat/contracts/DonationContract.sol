@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
 // Useful for debugging. Remove when deploying to a live network.
@@ -13,53 +13,57 @@ import "@openzeppelin/contracts/interfaces/IERC20.sol";
  * @author BuidlGuidl
  */
 contract DonationContract {
-	uint campaignId;
+	uint nextCampaignId;
 
-	//mapping of campaignId to campaign Owner
-	mapping(uint => address) public campaignOwner;
+	struct Campaign {
+		address campaignOwner;
+		bool isCampaignLive;
+		string campaignName;
+		mapping(address => uint) tokenAmounts; // mapping to keep track of donated tokens & amounts
+	}
 
-	//mapping of campaignId to campaignState
-	mapping(uint => bool) public isCampaignLive;
-
-	mapping(uint => string) public campaignName;
+	mapping(uint => Campaign) public campaigns;
 
 	//donate
-
 	function donate(
 		address[] memory _tokenAddresses,
 		uint[] memory _tokenAmounts,
 		uint _campaignId
 	) public payable {
-		require(isCampaignLive[_campaignId], "Campaign is not live");
+		Campaign storage campaign = campaigns[_campaignId];
+		require(campaign.isCampaignLive, "Campaign is not live");
 		require(
 			_tokenAddresses.length == _tokenAmounts.length,
 			"Array length mismatch"
 		);
 
-		address donatee = campaignOwner[_campaignId];
-
 		for (uint i = 0; i < _tokenAddresses.length; i++) {
 			IERC20 token = IERC20(_tokenAddresses[i]);
-			token.transferFrom(msg.sender, donatee, _tokenAmounts[i]);
+			token.transferFrom(
+				msg.sender,
+				campaign.campaignOwner, // TODO: should go to this contract adress
+				_tokenAmounts[i]
+			);
+			campaign.tokenAmounts[_tokenAddresses[i]] += _tokenAmounts[i];
 		}
 	}
 
-	//create campagin
-
+	//create campaign
 	function createCampaign(string memory _campaignName) public {
-		campaignId++;
-		campaignName[campaignId] = _campaignName;
-		isCampaignLive[campaignId] = true;
-		campaignOwner[campaignId] = msg.sender;
+		Campaign storage newCampaign = campaigns[nextCampaignId];
+		newCampaign.campaignOwner = msg.sender;
+		newCampaign.isCampaignLive = true;
+		newCampaign.campaignName = _campaignName;
+		nextCampaignId++;
 	}
 
 	//close campaign
-
 	function closeCampaign(uint _campaignId) public {
+		Campaign storage campaign = campaigns[_campaignId];
 		require(
-			campaignOwner[_campaignId] == msg.sender,
+			campaign.campaignOwner == msg.sender,
 			"You are not the owner of this campaign"
 		);
-		isCampaignLive[_campaignId] = false;
+		campaign.isCampaignLive = false;
 	}
 }
