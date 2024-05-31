@@ -2,26 +2,26 @@
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./utils/**/*.{js,ts,jsx,tsx}"],
   plugins: [require("daisyui")],
-  darkTheme: "dark",
+  darkTheme: "lemonade",
   darkMode: ["selector", "[data-theme='dark']"],
   // DaisyUI theme colors
   daisyui: {
     themes: [
       {
         light: {
-          primary: "#93BBFB",
+          primary: "#29CD62",
           "primary-content": "#212638",
-          secondary: "#DAE8FF",
+          secondary: "#FFD900",
           "secondary-content": "#212638",
-          accent: "#93BBFB",
+          accent: "#29CD62",
           "accent-content": "#212638",
           neutral: "#212638",
           "neutral-content": "#ffffff",
           "base-100": "#ffffff",
           "base-200": "#f4f8ff",
-          "base-300": "#DAE8FF",
+          "base-300": "#FFD900",
           "base-content": "#212638",
-          info: "#93BBFB",
+          info: "#29CD62",
           success: "#34EEB6",
           warning: "#FFCF72",
           error: "#FF8863",
