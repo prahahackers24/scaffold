@@ -8,9 +8,9 @@ dataSources:
     name: DonationContract
     network: holesky
     source:
-      address: "0xa52A05eB2Eb48499d5bEB6d89d39dDB41854f47C"
+      address: "0xbFC3a250ACa9Af6f3399D2056BDB5786f9Ec6b3e"
       abi: DonationContract
-      startBlock: 1646764
+      startBlock: 1647126
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

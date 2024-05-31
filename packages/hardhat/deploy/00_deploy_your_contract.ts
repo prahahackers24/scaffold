@@ -35,13 +35,14 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
   // TODO: Create some campaigns after deploying
   // Get the deployed contract to interact with it after deploying.
   const donationContract = await hre.ethers.getContract<Contract>("DonationContract", deployer);
+  
   const contractAddress = await donationContract.getAddress();
   const network = hre.network.name; // Dynamically get the network name
 
   console.log(`yarn hardhat verify "${contractAddress}" --network ${network}`);
 
-  // await donationContract.createCampaign("Test");
-  // console.log("👋 Create campaign:", await donationContract.createCampaign(0));
+  // await donationContract.createCampaign("Test", "0x5711a5D8e1dB96C9db0AAF3c3CEfB4403B5D230D", 100);
+  await donationContract.donate(["0x865981CAd2E01237A47f765f46e3E19F3a1cdfCC"],[1],0);
 };
 
 export default deployDonationContract;

@@ -6,7 +6,8 @@ import {
 import {
   CampaignClosed,
   CampaignCreated,
-  DonationReceived
+  DonationReceived,
+  Campaign
 } from "../generated/schema"
 
 export function handleCampaignClosed(event: CampaignClosedEvent): void {
@@ -35,6 +36,15 @@ export function handleCampaignCreated(event: CampaignCreatedEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+  
+  let campaignEntity = new Campaign(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  campaignEntity.campaignId = event.params.campaignId
+  campaignEntity.campaignOwner = event.params.campaignOwner
+  campaignEntity.campaignName = event.params.campaignName
+  campaignEntity.isLive = true
+  campaignEntity.save()
 }
 
 export function handleDonationReceived(event: DonationReceivedEvent): void {
@@ -43,7 +53,8 @@ export function handleDonationReceived(event: DonationReceivedEvent): void {
   )
   entity.campaignId = event.params.campaignId
   entity.donor = event.params.donor
-  entity.tokenAddresses = event.params.tokenAddresses
+  // entity.tokenAddresses = event.params.tokenAddresses
+  // TODO figure out why this doesn't work
   entity.tokenAmounts = event.params.tokenAmounts
 
   entity.blockNumber = event.block.number

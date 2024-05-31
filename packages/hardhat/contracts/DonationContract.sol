@@ -13,12 +13,14 @@ import "@openzeppelin/contracts/interfaces/IERC20.sol";
  * @author BuidlGuidl
  */
 contract DonationContract {
-	uint nextCampaignId;
+	uint nextCampaignId = 0;
 
 	struct Campaign {
 		address campaignOwner;
-		bool isCampaignLive;
+		bool isLive;
 		string campaignName;
+		uint goalAmount;
+		address goalToken;
 		mapping(address => uint) tokenAmounts; // mapping to keep track of donated tokens & amounts
 	}
 
@@ -42,9 +44,9 @@ contract DonationContract {
 		address[] memory _tokenAddresses,
 		uint[] memory _tokenAmounts,
 		uint _campaignId
-	) public payable {
+	) public {
 		Campaign storage campaign = campaigns[_campaignId];
-		require(campaign.isCampaignLive, "Campaign is not live");
+		require(campaign.isLive, "Campaign is not live");
 		require(
 			_tokenAddresses.length == _tokenAmounts.length,
 			"Array length mismatch"
@@ -69,11 +71,17 @@ contract DonationContract {
 	}
 
 	//create campaign
-	function createCampaign(string memory _campaignName) public {
+	function createCampaign(
+		string memory _campaignName,
+		address goalToken,
+		uint goalAmount
+	) public {
 		Campaign storage newCampaign = campaigns[nextCampaignId];
 		newCampaign.campaignOwner = msg.sender;
-		newCampaign.isCampaignLive = true;
+		newCampaign.isLive = true;
 		newCampaign.campaignName = _campaignName;
+		newCampaign.goalAmount = goalAmount;
+		newCampaign.goalToken = goalToken;
 
 		emit CampaignCreated(nextCampaignId, msg.sender, _campaignName);
 		nextCampaignId++;
@@ -86,7 +94,7 @@ contract DonationContract {
 			campaign.campaignOwner == msg.sender,
 			"You are not the owner of this campaign"
 		);
-		campaign.isCampaignLive = false;
+		campaign.isLive = false;
 
 		emit CampaignClosed(_campaignId);
 	}

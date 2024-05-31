@@ -1,8 +1,8 @@
 {
   "holesky": {
     "DonationContract": {
-      "address": "0xa52A05eB2Eb48499d5bEB6d89d39dDB41854f47C",
-      "startBlock": 1646764
+      "address": "0xbFC3a250ACa9Af6f3399D2056BDB5786f9Ec6b3e",
+      "startBlock": 1647126
     }
   }
 }

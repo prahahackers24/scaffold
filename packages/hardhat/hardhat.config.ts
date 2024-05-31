@@ -120,7 +120,7 @@ const config: HardhatUserConfig = {
         chainId: 2442, // Example Chain ID, verify and update
         urls: {
           apiURL: "https://api-cardona-zkevm.polygonscan.com/api",
-          browserURL: "https://testnet-zkevm.polygonscan.com",
+          browserURL: "https://cardona-zkevm.polygonscan.com/",
         },
       },
       {
