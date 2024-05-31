@@ -12,33 +12,36 @@ import "@openzeppelin/contracts/interfaces/IERC20.sol";
  * It also allows the owner to withdraw the Ether in the contract
  * @author BuidlGuidl
  */
-contract Project {
-	
-    uint campaignId;
+contract DonationContract {
+	uint campaignId;
 
 	//mapping of campaignId to campaign Owner
-	mapping (uint => address) public campaignOwner;
-	 
-   //mapping of campaignId to campaignState
-	mapping (uint => bool) public isCampaignLive;
+	mapping(uint => address) public campaignOwner;
+
+	//mapping of campaignId to campaignState
+	mapping(uint => bool) public isCampaignLive;
 
 	mapping(uint => string) public campaignName;
 
+	//donate
 
+	function donate(
+		address[] memory _tokenAddresses,
+		uint[] memory _amounts,
+		uint _campaignId
+	) public payable {
+		require(isCampaignLive[_campaignId], "Campaign is not live");
+		require(
+			_tokenAddresses.length == _amounts.length,
+			"Array length mismatch"
+		);
 
+		address donatee = campaignOwner[_campaignId];
 
-	//donate 
-
-	function donate(address[] memory _tokenAddresses, uint[] memory _amounts, uint _campaignId) public payable {
-	    require(isCampaignLive[_campaignId], "Campaign is not live");			
-  	    require(_tokenAddresses.length == _amounts.length, "Array length mismatch");
-
-        address donatee = campaignOwner[_campaignId];
-
-	    for(uint i = 0; i < _tokenAddresses.length; i++) {
-	        IERC20 token = IERC20(_tokenAddresses[i]);
-	        token.transferFrom(msg.sender, donatee, _amounts[i]);
-	    }					
+		for (uint i = 0; i < _tokenAddresses.length; i++) {
+			IERC20 token = IERC20(_tokenAddresses[i]);
+			token.transferFrom(msg.sender, donatee, _amounts[i]);
+		}
 	}
 
 	//create campagin
@@ -50,13 +53,13 @@ contract Project {
 		campaignOwner[campaignId] = msg.sender;
 	}
 
-
-
 	//close campaign
 
 	function closeCampaign(uint _campaignId) public {
-		require(campaignOwner[_campaignId] == msg.sender, "You are not the owner of this campaign");
+		require(
+			campaignOwner[_campaignId] == msg.sender,
+			"You are not the owner of this campaign"
+		);
 		isCampaignLive[_campaignId] = false;
 	}
-
 }

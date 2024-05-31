@@ -39,17 +39,11 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    // View the networks that are pre-configured.
-    // If the network you are looking for is not here you can add new network settings
     hardhat: {
       forking: {
         url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
-    },
-    mainnet: {
-      url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
     },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
@@ -57,10 +51,6 @@ const config: HardhatUserConfig = {
     },
     holesky: {
       url: `https://eth-holesky.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    optimism: {
-      url: `https://opt-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
     optimismSepolia: {
@@ -87,9 +77,69 @@ const config: HardhatUserConfig = {
       accounts: [deployerPrivateKey],
     },
   },
-  // configuration for harhdat-verify plugin
+
   etherscan: {
-    apiKey: `${etherscanApiKey}`,
+    apiKey: {
+      // Add your custom network names here
+      mainnet: etherscanApiKey,
+      sepolia: etherscanApiKey,
+      holesky: etherscanApiKey,
+      optimismSepolia: etherscanApiKey,
+      polygonZkEvmTestnet: etherscanApiKey,
+      mantleTest: process.env.MANTLESCAN_API_KEY || "",
+      linea: etherscanApiKey,
+      zircuit: etherscanApiKey,
+    },
+    customChains: [
+      {
+        network: "holesky",
+        chainId: 17000,
+        urls: {
+          apiURL: "https://api-holesky.etherscan.io/api",
+          browserURL: "https://holesky.etherscan.io",
+        },
+      },
+      {
+        network: "mantleTest",
+        chainId: 5003, // Update with the correct chain ID
+        urls: {
+          apiURL: "https://api-sepolia.mantlescan.xyz/api",
+          browserURL: "https://sepolia.mantlescan.xyz/",
+        },
+      },
+      {
+        network: "optimismSepolia",
+        chainId: 11155420, // Example Chain ID, verify and update
+        urls: {
+          apiURL: "https://api-optimistic.etherscan.io/api",
+          browserURL: "https://optimistic.etherscan.io",
+        },
+      },
+      {
+        network: "polygonZkEvmTestnet",
+        chainId: 1442, // Example Chain ID, verify and update
+        urls: {
+          apiURL: "https://api-testnet-zkevm.polygonscan.com/api",
+          browserURL: "https://testnet-zkevm.polygonscan.com",
+        },
+      },
+      {
+        network: "linea",
+        chainId: 59141, // Example Chain ID, verify and update
+        urls: {
+          apiURL: "https://api.linea.build/api",
+          browserURL: "https://linea.build",
+        },
+      },
+      {
+        network: "zircuit",
+        chainId: 48899, // Example Chain ID, verify and update
+        urls: {
+          apiURL: "https://api.zircuit.io/api",
+          browserURL: "https://zircuit.io",
+        },
+      },
+    ],
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {

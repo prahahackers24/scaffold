@@ -49,12 +49,12 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ### Verified smart contracts
 
-- [Smart contract on Holesky](https://holesky.etherscan.io/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
-- [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
-- [Smart contract on Linea Testnet](https://sepolia.lineascan.build/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
-- [Smart contract on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
-- [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
-- [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0)
+- [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+- [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+- [Smart contract on Linea Testnet](https://sepolia.lineascan.build/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+- [Smart contract on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+- [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+- [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 
 ## Team
 
