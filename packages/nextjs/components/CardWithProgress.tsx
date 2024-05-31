@@ -19,8 +19,12 @@ interface CardProps {
     <div className="card-body">
       <h2 className="card-title">{title}</h2>
       <p>{description}</p>
-      <div className="card-actions justify-end">
-        <button className="btn btn-primary">Donate Now!</button>
+      <div>
+        <div className='flex justify-between'>
+         <p className='font-bold text-success text-xl'>40%</p>
+         <p className='font-bold text-white text-xl text-end'>500USDT</p>
+        </div>
+      <progress className="progress progress-success h-3 w-full" value="40" max="100"></progress>
       </div>
     </div>
   </div>
