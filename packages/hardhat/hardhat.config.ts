@@ -78,7 +78,7 @@ const config: HardhatUserConfig = {
     },
 
     linea: {
-      url: `https://linea-goerli.infura.io/v3/${infuraApiKey}`,
+      url: `https://linea-sepolia.infura.io/v3/${infuraApiKey}`,
       accounts: [deployerPrivateKey],
     },
 
