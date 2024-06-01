@@ -7,8 +7,24 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   2442: {
     DonationContract: {
-      address: "0xc15BC025d57bec9FA39e18701b4f0b3b5a067B6C",
+      address: "0xa52A05eB2Eb48499d5bEB6d89d39dDB41854f47C",
       abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_batchSwapContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
         {
           anonymous: false,
           inputs: [
@@ -79,6 +95,45 @@ const deployedContracts = {
           type: "event",
         },
         {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "batchSwapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolBatchSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "uint256",
@@ -103,6 +158,16 @@ const deployedContracts = {
               name: "campaignName",
               type: "string",
             },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -126,6 +191,16 @@ const deployedContracts = {
               internalType: "string",
               name: "_campaignName",
               type: "string",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
             },
           ],
           name: "createCampaign",
@@ -153,11 +228,284 @@ const deployedContracts = {
           ],
           name: "donate",
           outputs: [],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+            {
+              internalType: "bool[]",
+              name: "zeroForOnes",
+              type: "bool[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "zeroForOne",
+              type: "bool",
+            },
+          ],
+          name: "makeSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextCampaignId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "swapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
       inheritedFunctions: {},
+    },
+    PoolBatchSwapTest: {
+      address: "0x64CDeB6CD5ecfB002bdaFabc98B5C883C5C06B27",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "_manager",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "NoSwapOccurred",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "manager",
+          outputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "zeroForOne",
+                  type: "bool",
+                },
+                {
+                  internalType: "int256",
+                  name: "amountSpecified",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint160",
+                  name: "sqrtPriceLimitX96",
+                  type: "uint160",
+                },
+              ],
+              internalType: "struct IPoolManager.SwapParams[]",
+              name: "params",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "takeClaims",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "settleUsingBurn",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct PoolBatchSwapTest.TestSettings",
+              name: "testSettings",
+              type: "tuple",
+            },
+            {
+              internalType: "bytes",
+              name: "hookData",
+              type: "bytes",
+            },
+          ],
+          name: "swap",
+          outputs: [
+            {
+              internalType: "BalanceDelta[]",
+              name: "deltas",
+              type: "int256[]",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "rawData",
+              type: "bytes",
+            },
+          ],
+          name: "unlockCallback",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        manager: "libs/v4-core/src/test/PoolTestBase.sol",
+        unlockCallback: "libs/v4-core/src/test/PoolTestBase.sol",
+      },
     },
     YourContract: {
       address: "0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0",
@@ -305,8 +653,24 @@ const deployedContracts = {
   },
   5003: {
     DonationContract: {
-      address: "0xbFC3a250ACa9Af6f3399D2056BDB5786f9Ec6b3e",
+      address: "0x77C461C1E180DD6A08A17E74bFb5207e44c7aC7f",
       abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_batchSwapContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
         {
           anonymous: false,
           inputs: [
@@ -377,6 +741,45 @@ const deployedContracts = {
           type: "event",
         },
         {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "batchSwapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolBatchSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "uint256",
@@ -401,6 +804,16 @@ const deployedContracts = {
               name: "campaignName",
               type: "string",
             },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -424,6 +837,16 @@ const deployedContracts = {
               internalType: "string",
               name: "_campaignName",
               type: "string",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
             },
           ],
           name: "createCampaign",
@@ -451,7 +874,133 @@ const deployedContracts = {
           ],
           name: "donate",
           outputs: [],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+            {
+              internalType: "bool[]",
+              name: "zeroForOnes",
+              type: "bool[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "zeroForOne",
+              type: "bool",
+            },
+          ],
+          name: "makeSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextCampaignId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "swapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
@@ -997,6 +1546,153 @@ const deployedContracts = {
           "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
       },
     },
+    PoolBatchSwapTest: {
+      address: "0x7868c79421a36a00B0DF2c2C5254aBf89B98eA34",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "_manager",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "NoSwapOccurred",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "manager",
+          outputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "zeroForOne",
+                  type: "bool",
+                },
+                {
+                  internalType: "int256",
+                  name: "amountSpecified",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint160",
+                  name: "sqrtPriceLimitX96",
+                  type: "uint160",
+                },
+              ],
+              internalType: "struct IPoolManager.SwapParams[]",
+              name: "params",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "takeClaims",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "settleUsingBurn",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct PoolBatchSwapTest.TestSettings",
+              name: "testSettings",
+              type: "tuple",
+            },
+            {
+              internalType: "bytes",
+              name: "hookData",
+              type: "bytes",
+            },
+          ],
+          name: "swap",
+          outputs: [
+            {
+              internalType: "BalanceDelta[]",
+              name: "deltas",
+              type: "int256[]",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "rawData",
+              type: "bytes",
+            },
+          ],
+          name: "unlockCallback",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        manager: "libs/v4-core/src/test/PoolTestBase.sol",
+        unlockCallback: "libs/v4-core/src/test/PoolTestBase.sol",
+      },
+    },
     YourContract: {
       address: "0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0",
       abi: [
@@ -1143,8 +1839,24 @@ const deployedContracts = {
   },
   17000: {
     DonationContract: {
-      address: "0x24cE7Bdf867de81e6A910982d658e423ad3DA3C9",
+      address: "0x16d4fAD899F2c925AB3e7293F081545Dd08d73B6",
       abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_batchSwapContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
         {
           anonymous: false,
           inputs: [
@@ -1213,6 +1925,45 @@ const deployedContracts = {
           ],
           name: "DonationReceived",
           type: "event",
+        },
+        {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "batchSwapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolBatchSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
         },
         {
           inputs: [
@@ -1310,6 +2061,132 @@ const deployedContracts = {
           name: "donate",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+            {
+              internalType: "bool[]",
+              name: "zeroForOnes",
+              type: "bool[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "zeroForOne",
+              type: "bool",
+            },
+          ],
+          name: "makeSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextCampaignId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "swapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
@@ -4506,7 +5383,7 @@ const deployedContracts = {
       },
     },
     PoolBatchSwapTest: {
-      address: "0xf316bc0Eb4A285a57741BdA7bD93cA23C74Ac929",
+      address: "0x34641bc6A82Ed49E63004285274459c904bc46A1",
       abi: [
         {
           inputs: [
@@ -4567,9 +5444,9 @@ const deployedContracts = {
                   type: "address",
                 },
               ],
-              internalType: "struct PoolKey",
-              name: "key",
-              type: "tuple",
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
             },
             {
               components: [
@@ -4619,9 +5496,9 @@ const deployedContracts = {
           name: "swap",
           outputs: [
             {
-              internalType: "BalanceDelta",
-              name: "delta",
-              type: "int256",
+              internalType: "BalanceDelta[]",
+              name: "deltas",
+              type: "int256[]",
             },
           ],
           stateMutability: "payable",
@@ -6565,8 +7442,24 @@ const deployedContracts = {
   },
   48899: {
     DonationContract: {
-      address: "0x64CDeB6CD5ecfB002bdaFabc98B5C883C5C06B27",
+      address: "0x310256C0b02B1EF36A537427885E495533c13DeE",
       abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_batchSwapContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
         {
           anonymous: false,
           inputs: [
@@ -6637,6 +7530,45 @@ const deployedContracts = {
           type: "event",
         },
         {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "batchSwapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolBatchSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "uint256",
@@ -6661,6 +7593,16 @@ const deployedContracts = {
               name: "campaignName",
               type: "string",
             },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -6684,6 +7626,16 @@ const deployedContracts = {
               internalType: "string",
               name: "_campaignName",
               type: "string",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
             },
           ],
           name: "createCampaign",
@@ -6711,7 +7663,133 @@ const deployedContracts = {
           ],
           name: "donate",
           outputs: [],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+            {
+              internalType: "bool[]",
+              name: "zeroForOnes",
+              type: "bool[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "zeroForOne",
+              type: "bool",
+            },
+          ],
+          name: "makeSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextCampaignId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "swapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
@@ -7257,6 +8335,153 @@ const deployedContracts = {
           "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
       },
     },
+    PoolBatchSwapTest: {
+      address: "0xA54f073Cc3fBAa3091dDAe16cDb5EB550c4a17A8",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "_manager",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "NoSwapOccurred",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "manager",
+          outputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "zeroForOne",
+                  type: "bool",
+                },
+                {
+                  internalType: "int256",
+                  name: "amountSpecified",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint160",
+                  name: "sqrtPriceLimitX96",
+                  type: "uint160",
+                },
+              ],
+              internalType: "struct IPoolManager.SwapParams[]",
+              name: "params",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "takeClaims",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "settleUsingBurn",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct PoolBatchSwapTest.TestSettings",
+              name: "testSettings",
+              type: "tuple",
+            },
+            {
+              internalType: "bytes",
+              name: "hookData",
+              type: "bytes",
+            },
+          ],
+          name: "swap",
+          outputs: [
+            {
+              internalType: "BalanceDelta[]",
+              name: "deltas",
+              type: "int256[]",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "rawData",
+              type: "bytes",
+            },
+          ],
+          name: "unlockCallback",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        manager: "libs/v4-core/src/test/PoolTestBase.sol",
+        unlockCallback: "libs/v4-core/src/test/PoolTestBase.sol",
+      },
+    },
     YourContract: {
       address: "0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0",
       abi: [
@@ -7403,8 +8628,24 @@ const deployedContracts = {
   },
   59141: {
     DonationContract: {
-      address: "0xa52A05eB2Eb48499d5bEB6d89d39dDB41854f47C",
+      address: "0xf97379b8768c2bb3CA23413766B1DB6840B551a0",
       abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_batchSwapContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
         {
           anonymous: false,
           inputs: [
@@ -7475,6 +8716,45 @@ const deployedContracts = {
           type: "event",
         },
         {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "batchSwapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolBatchSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "uint256",
@@ -7499,6 +8779,16 @@ const deployedContracts = {
               name: "campaignName",
               type: "string",
             },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -7522,6 +8812,16 @@ const deployedContracts = {
               internalType: "string",
               name: "_campaignName",
               type: "string",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
             },
           ],
           name: "createCampaign",
@@ -7549,11 +8849,284 @@ const deployedContracts = {
           ],
           name: "donate",
           outputs: [],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+            {
+              internalType: "bool[]",
+              name: "zeroForOnes",
+              type: "bool[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "zeroForOne",
+              type: "bool",
+            },
+          ],
+          name: "makeSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextCampaignId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "swapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
       inheritedFunctions: {},
+    },
+    PoolBatchSwapTest: {
+      address: "0x5C0BDa6a6d287dFdC058b86bdaFc7509dB74E111",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "_manager",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "NoSwapOccurred",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "manager",
+          outputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "zeroForOne",
+                  type: "bool",
+                },
+                {
+                  internalType: "int256",
+                  name: "amountSpecified",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint160",
+                  name: "sqrtPriceLimitX96",
+                  type: "uint160",
+                },
+              ],
+              internalType: "struct IPoolManager.SwapParams[]",
+              name: "params",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "takeClaims",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "settleUsingBurn",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct PoolBatchSwapTest.TestSettings",
+              name: "testSettings",
+              type: "tuple",
+            },
+            {
+              internalType: "bytes",
+              name: "hookData",
+              type: "bytes",
+            },
+          ],
+          name: "swap",
+          outputs: [
+            {
+              internalType: "BalanceDelta[]",
+              name: "deltas",
+              type: "int256[]",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "rawData",
+              type: "bytes",
+            },
+          ],
+          name: "unlockCallback",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        manager: "libs/v4-core/src/test/PoolTestBase.sol",
+        unlockCallback: "libs/v4-core/src/test/PoolTestBase.sol",
+      },
     },
   },
   11155111: {
@@ -7656,7 +9229,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     DonationContract: {
-      address: "0x38C256F5E1DCA667F246093b66c022A09d607506",
+      address: "0x38D00054A36bc865077A129489074AF7e9899C3a",
       abi: [
         {
           inputs: [
@@ -12399,8 +13972,24 @@ const deployedContracts = {
   },
   11155420: {
     DonationContract: {
-      address: "0xc15BC025d57bec9FA39e18701b4f0b3b5a067B6C",
+      address: "0x64CDeB6CD5ecfB002bdaFabc98B5C883C5C06B27",
       abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_batchSwapContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
         {
           anonymous: false,
           inputs: [
@@ -12471,6 +14060,45 @@ const deployedContracts = {
           type: "event",
         },
         {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "batchSwapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolBatchSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "uint256",
@@ -12495,6 +14123,16 @@ const deployedContracts = {
               name: "campaignName",
               type: "string",
             },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -12518,6 +14156,16 @@ const deployedContracts = {
               internalType: "string",
               name: "_campaignName",
               type: "string",
+            },
+            {
+              internalType: "address",
+              name: "goalToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "goalAmount",
+              type: "uint256",
             },
           ],
           name: "createCampaign",
@@ -12545,11 +14193,284 @@ const deployedContracts = {
           ],
           name: "donate",
           outputs: [],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+            {
+              internalType: "bool[]",
+              name: "zeroForOnes",
+              type: "bool[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "zeroForOne",
+              type: "bool",
+            },
+          ],
+          name: "makeSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextCampaignId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "swapRouter",
+          outputs: [
+            {
+              internalType: "contract PoolSwapTest",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
       inheritedFunctions: {},
+    },
+    PoolBatchSwapTest: {
+      address: "0xf97379b8768c2bb3CA23413766B1DB6840B551a0",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "_manager",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "NoSwapOccurred",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "manager",
+          outputs: [
+            {
+              internalType: "contract IPoolManager",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "zeroForOne",
+                  type: "bool",
+                },
+                {
+                  internalType: "int256",
+                  name: "amountSpecified",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint160",
+                  name: "sqrtPriceLimitX96",
+                  type: "uint160",
+                },
+              ],
+              internalType: "struct IPoolManager.SwapParams[]",
+              name: "params",
+              type: "tuple[]",
+            },
+            {
+              components: [
+                {
+                  internalType: "bool",
+                  name: "takeClaims",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "settleUsingBurn",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct PoolBatchSwapTest.TestSettings",
+              name: "testSettings",
+              type: "tuple",
+            },
+            {
+              internalType: "bytes",
+              name: "hookData",
+              type: "bytes",
+            },
+          ],
+          name: "swap",
+          outputs: [
+            {
+              internalType: "BalanceDelta[]",
+              name: "deltas",
+              type: "int256[]",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "rawData",
+              type: "bytes",
+            },
+          ],
+          name: "unlockCallback",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        manager: "libs/v4-core/src/test/PoolTestBase.sol",
+        unlockCallback: "libs/v4-core/src/test/PoolTestBase.sol",
+      },
     },
     YourContract: {
       address: "0x83277E9FE7Cc93Ad2D5986b87659A6fa80A48Ac0",

@@ -133,7 +133,14 @@ contract DonationContract {
 
 		address[] memory tokenAddresses = campaign.tokenAddresses;
 
-		for (uint i = 0; i < tokenAddresses.length; i++) {
+		uint length = tokenAddresses.length;
+		PoolKey[] memory keys = new PoolKey[](length);
+		int256[] memory amountsSpecified = new int256[](length);
+		bool[] memory zeroForOnes = new bool[](length);
+
+		uint batchIndex = 0;
+
+		for (uint i = 0; i < length; i++) {
 			if (tokenAddresses[i] == campaign.goalToken) {
 				// skip goal token
 				continue;
@@ -142,7 +149,7 @@ contract DonationContract {
 			Currency outputCurrency = Currency.wrap(campaign.goalToken);
 			bool zeroForOne = inputCurrency < outputCurrency;
 
-			PoolKey memory key = PoolKey({
+			keys[batchIndex] = PoolKey({
 				currency0: zeroForOne ? inputCurrency : outputCurrency,
 				currency1: zeroForOne ? outputCurrency : inputCurrency,
 				fee: 500,
@@ -150,8 +157,33 @@ contract DonationContract {
 				tickSpacing: 10
 			});
 
-			uint tokenAmount = campaign.tokenAmounts[tokenAddresses[i]];
-			swap(key, int256(tokenAmount), zeroForOne);
+			amountsSpecified[batchIndex] = int256(
+				campaign.tokenAmounts[tokenAddresses[i]]
+			);
+			zeroForOnes[batchIndex] = zeroForOne;
+
+			batchIndex++;
+		}
+
+		// Adjust the arrays to remove any skipped elements
+		if (batchIndex < length) {
+			PoolKey[] memory adjustedKeys = new PoolKey[](batchIndex);
+			int256[] memory adjustedAmountsSpecified = new int256[](batchIndex);
+			bool[] memory adjustedZeroForOnes = new bool[](batchIndex);
+
+			for (uint j = 0; j < batchIndex; j++) {
+				adjustedKeys[j] = keys[j];
+				adjustedAmountsSpecified[j] = amountsSpecified[j];
+				adjustedZeroForOnes[j] = zeroForOnes[j];
+			}
+
+			batchSwap(
+				adjustedKeys,
+				adjustedAmountsSpecified,
+				adjustedZeroForOnes
+			);
+		} else {
+			batchSwap(keys, amountsSpecified, zeroForOnes);
 		}
 
 		emit CampaignClosed(_campaignId);
