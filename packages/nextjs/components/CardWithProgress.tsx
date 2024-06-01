@@ -23,7 +23,7 @@ interface CardProps {
       <div>
         <div className='flex justify-between'>
          <p className='font-bold text-success text-xl'>40%</p>
-         <p className='font-bold text-white text-xl text-end'>{donationGoal} USDC</p>
+         <p className='font-bold text-primary text-xl text-end'>{donationGoal} USDC</p>
         </div>
       <progress className="progress progress-success h-3 w-full" value="40" max="100"></progress>
       </div>

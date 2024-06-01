@@ -1,0 +1,32 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: DonationContract
+    network: sepolia
+    source:
+      address: "0x015c05c99467aca9eb8313bFe836c75067C01ce8"
+      abi: DonationContract
+      startBlock: 6019786
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CampaignClosed
+        - CampaignCreated
+        - DonationReceived
+      abis:
+        - name: DonationContract
+          file: DonationContract\abis\DonationContract.json
+      eventHandlers:
+        - event: CampaignClosed(uint256)
+          handler: handleCampaignClosed
+        - event: CampaignCreated(uint256,address,string)
+          handler: handleCampaignCreated
+        - event: DonationReceived(uint256,address,address[],uint256[])
+          handler: handleDonationReceived
+      file: DonationContract\DonationContract.wasm
