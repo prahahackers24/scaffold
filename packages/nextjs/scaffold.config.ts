@@ -17,10 +17,10 @@ const scaffoldConfig = {
     chains.holesky,
     chains.optimismSepolia,
     chains.mantleSepoliaTestnet,
-    chains.zircuit, // not availble?
+    zircuit, // not availble?
     chains.lineaSepolia,
     chains.polygonZkEvmCardona,
-    zircuit
+    
   ],
 
   // The interval at which your front-end polls the RPC servers for new data

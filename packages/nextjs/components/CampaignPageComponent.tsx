@@ -16,6 +16,24 @@ interface Campaign {
 
 const CampaignPageComponent = ({pageId} : any) => {
 
+  const imageAndTitleMapping = {
+    "0": {
+      imgSrc: "/camp_codeminds.jpeg",
+      title: "Support Our Programming School"
+    },
+    "1": {
+      imgSrc: "/camp_ReFi_prague.webp",
+      title: "Fundraiser for ReFi DAO Prague Pod"
+    },
+    "2": {
+      imgSrc: "/camp_tornado.jpeg",
+      title: "Legal Defense Fund support for Alexey Pertsev and Roman Storm"
+    },
+    "3": {
+      imgSrc: "/camp_ukraine.jpeg",
+      title: "We stand with Ukraine"
+    },
+   }
 
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const campaignId = 1; // Replace with the actual campaign ID you want to query
@@ -47,12 +65,13 @@ const CampaignPageComponent = ({pageId} : any) => {
       <div className='grid grid-cols-2 my-8'>
 
        {campaignData ? <CardWithProgress 
-           
-      imgSrc="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-      title={`${campaignData[2]}`}
+           //@ts-ignore
+      imgSrc={imageAndTitleMapping[pageId].imgSrc}
+          //@ts-ignore
+      title={imageAndTitleMapping[pageId].title}
       //@ts-ignore
       donationGoal={parseInt(campaignData[3]) / 1e18} 
-      description="description goes here..." />
+      description="" />
       : <div>loaidng...</div> } 
 
 
