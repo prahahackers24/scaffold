@@ -13,7 +13,7 @@ const deployPoolBatchSwapTestAndBatchSwap: DeployFunction = async function (hre:
 
   const network = hre.network.name; // Dynamically get the network name
 
-  let pool_manager = ""
+  let pool_manager = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"
 
   if (network ==  "sepolia") {
     pool_manager = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"

@@ -189,7 +189,11 @@ contract DonationContract {
 			address(swapRouter),
 			type(uint256).max
 		);
-
+		require(
+			IERC20(Currency.unwrap(key.currency0)).balanceOf(address(this)) >=
+				uint256(amountSpecified),
+			"Insufficient token balance"
+		);
 		swapRouter.swap(key, params, testSettings, hookData);
 	}
 

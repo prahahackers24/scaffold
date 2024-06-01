@@ -6,7 +6,7 @@
   <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
-Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and USDC target for the donation. When the donation hits the target (in USDC), UniSwap hooks are used to swap all tokens for USDC, before transferring the USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
+Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and $USDC target for the donation. When the donation hits the target (in $USDC), UniSwap is used to swap all tokens for $USDC, before transferring the $USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
 
 ⚙️ Built using EigenLayer, The Graph, Uniswap NextJS, Hardhat, and Wagmi.
 
@@ -22,13 +22,19 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ### Eigenlayer - Best use of EigenLayer AVS
 
-We created our own Eigenlayer AVS.
+We created our own Eigenlayer AVS to verify the total value of the donated ERC20 in a single campaign are at least equal to the campaign target in $USDC. When the EigenLayer stakers verify this, the campaign can close, swap all tokens to the target value in $USDC. When the swap is completed but the value turns out to be lower than the campaign target, validators get slashed. It's easy to verify, so the bonding period to withdraw can be very short in our case.
 
-Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this.
+Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this. Also we added 1 additional step in the readme, to help people get started more easily.
 
-### Uniswap Foundation - Hook Features
+- [Github AVS Repo](https://github.com/prahahackers24/avs)
+- [Bugfix](https://github.com/prahahackers24/avs/blob/7d30dc0bf0a3b245a19f2d82a340e2b9ca9a2a0d/Makefile#L49-L52)
+- [Readme update](https://github.com/prahahackers24/avs/blob/7d30dc0bf0a3b245a19f2d82a340e2b9ca9a2a0d/README.md?plain=1#L27)
+
+### Uniswap Foundation - Track 3: Pool Operators & Research
 
 We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap.
+
+- [PoolBatchSwapTest Contract on Sepolia](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
 
 ### The Graph - Best New Subgraph
 
@@ -38,13 +44,38 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 ### Linea - Build any dapp on Linea
 
+Smart contract deployed and verified here:
+
+- [DonationContract.sol on Linea Testnet](https://sepolia.lineascan.build/address/address/0xf97379b8768c2bb3CA23413766B1DB6840B551a0#code)
+- [PoolBatchSwapTest.sol on Linea Testnet](https://sepolia.lineascan.build/address/address/0x5C0BDa6a6d287dFdC058b86bdaFc7509dB74E111#code)
+
 ### Mantle - Best DeFi project
+
+We created a unique batch swap feature to make our donation dApp more gas efficient. This batch swap feature is a seperate smart contract, that can be used for many novel applications.
+
+- [DonationContract.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x77C461C1E180DD6A08A17E74bFb5207e44c7aC7f#code)
+- [PoolBatchSwapTest.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x7868c79421a36a00B0DF2c2C5254aBf89B98eA34#code)
 
 ### Optimism - Prototype a Superchain Superpower
 
+The BatchSwap contract can leverage new usecases, such as the Donation Appreciation showcases. The BatchSwap is a gas efficient way to convert your portfolio to stables or ETH with one single transaction.
+
+- [DonationContract.sol on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x64CDeB6CD5ecfB002bdaFabc98B5C883C5C06B27#code)
+- [PoolBatchSwapTest.sol on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0xf97379b8768c2bb3CA23413766B1DB6840B551a0#code)
+
 ### Polygon - Launch a Creative MVP on Polygon Cardona
 
+We created a unique donation platform that allows new ways of raising funds. The target can be reached by shilling the bags of the donation contract, making the donation campaign being able to hit their targets without additional donations. Deploying on the Cardona testnet was straight forward and easy, but we had trouble verifying the contracts.
+
+- [DonationContract.sol on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
+- [PoolBatchSwapTest.sol on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x64CDeB6CD5ecfB002bdaFabc98B5C883C5C06B27)
+
 ### Zircuit - Best Hackathon Project on Zircuit
+
+Deploying in Zircuit was very easy, and also verification of the contracts was very straight forward.
+
+- [DonationContract.sol on Zircuit](https://explorer.zircuit.com/address/0x310256C0b02B1EF36A537427885E495533c13DeE#code)
+- [PoolBatchSwapTest.sol on Zircuit](https://explorer.zircuit.com/address/0xA54f073Cc3fBAa3091dDAe16cDb5EB550c4a17A8#code)
 
 ## Links
 
@@ -53,26 +84,8 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 - [Presentation slides]()
 - [Demo video]()
 - [Github dApp repo](https://github.com/prahahackers24/scaffold)
-- [Github AVS repo](https://github.com/prahahackers24/scaffold)
+- [Github AVS repo](https://github.com/prahahackers24/AVS-PRAGUE)
 - [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
-
-### Donation Contract
-
-- [Smart contract on Sepolia](https://sepolia.etherscan.io/address/0x015c05c99467aca9eb8313bFe836c75067C01ce8#code)
-- [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
-- [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
-- [Smart contract on Linea Testnet](https://sepolia.lineascan.build/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
-- [Smart contract on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
-- [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
-- [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
-
-### Eigenlayer Contract
-
-- [Github AVS Repo](https://github.com/prahahackers24/avs)
-
-### Uniswap Contracts
-
-- [PoolBatchSwapTest](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
 
 ## Next steps
 

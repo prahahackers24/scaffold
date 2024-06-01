@@ -24,8 +24,8 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
 
   const network = hre.network.name; // Dynamically get the network name
 
-  let swapRouter = "";
-  let batchSwapRouter = "";
+  let swapRouter = "0x841B5A0b3DBc473c8A057E2391014aa4C4751351";
+  let batchSwapRouter = "0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34";
 
   if (network ==  "sepolia") {
     swapRouter = "0x841B5A0b3DBc473c8A057E2391014aa4C4751351"
@@ -51,7 +51,7 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
 
   console.log(`yarn hardhat verify "${contractAddress}" --network ${network} "${swapRouter}" "${batchSwapRouter}"`);
 
-  await donationContract.makeSwap(["0xc268035619873d85461525F5fDb792dd95982161", "0xc268035619873d85461525F5fDb792dd95982161", 500, 10, "0x0000000000000000000000000000000000000000"], 10000, true);
+  // await donationContract.makeSwap(["0xc268035619873d85461525F5fDb792dd95982161", "0xc268035619873d85461525F5fDb792dd95982161", 500, 10, "0x0000000000000000000000000000000000000000"], 1, true);
   // await donationContract.createCampaign("Test", "0x5711a5D8e1dB96C9db0AAF3c3CEfB4403B5D230D", 100);
   // await donationContract.donate(["0x06cA44b817F9172e1BaB3a8e8a36020AeC6D7e8d"],[1],0);
     // await donationContract.closeCampaign(1);

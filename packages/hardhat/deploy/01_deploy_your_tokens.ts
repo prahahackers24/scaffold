@@ -35,9 +35,10 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     const tokenContract = await hre.ethers.getContract<Contract>(token.ticker, deployer);
     
     //approve our contract
-    await tokenContract.approve("0x3C8B9a04E97bD77C3490C42870ca2B051546258e", "99999999999999999999999999999");
+    await tokenContract.approve("0x15c289f9646474c6bf7ff0e3bf313fbcb8b33a4c", "99999999999999999999999999999");
 
-    // // //approve  swap router
+    // // //approve  swap routert, "0x15C289f9646474C6BF7fF0E3bf313FBcB8b33A4C", 990000000000, token.ticker);
+    // console.log(`Minted ${150} ${tok
     // await tokenContract.approve("0x841b5a0b3dbc473c8a057e2391014aa4c4751351", "99999999999999999999999999999");
 
     // // //approve pool contract
@@ -58,8 +59,8 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       await tokenContract.mint(recipient, amount);
       console.log(`Minted ${amount} ${ticker} to ${recipient}`);
     }
-    // await mintWithDelay(tokenContract, "0x898c6F7bD2cDaEfcA404699825efFc841d7eA299", 150, token.ticker);
-    // console.log(`Minted ${150} ${token.ticker} to ${"0x898c6F7bD2cDaEfcA404699825efFc841d7eA299"}`);
+    // await mintWithDelay(tokenContract, "0x15C289f9646474C6BF7fF0E3bf313FBcB8b33A4C", 990000000000, token.ticker);
+    // console.log(`Minted ${150} ${token.ticker} to ${"0x15C289f9646474C6BF7fF0E3bf313FBcB8b33A4C"}`);
     // await mintWithDelay(tokenContract, "0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6", 150, token.ticker);
     // console.log(`Minted ${150} ${token.ticker} to ${"0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6"}`);
     // await mintWithDelay(tokenContract, "0x199d51a2Be04C65f325908911430E6FF79a15ce3", 150, token.ticker);
