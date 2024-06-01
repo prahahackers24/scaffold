@@ -13,6 +13,9 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     { name: "Mantle", ticker: "MNT" },
     { name: "Polygon", ticker: "MATIC" },
     { name: "TheGraph", ticker: "GRT" },
+    { name: "EigenLayer", ticker: "EIGEN" },
+    { name: "Zircuit", ticker: "ZRC" },
+    { name: "Uniswap", ticker: "UNI" },
   ];
 
   for (const token of tokenDetails) {
@@ -46,8 +49,8 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       await tokenContract.mint(recipient, amount);
       console.log(`Minted ${amount} ${ticker} to ${recipient}`);
     }
-    // await mintWithDelay(tokenContract, "0x15C289f9646474C6BF7fF0E3bf313FBcB8b33A4C", 990000000000, token.ticker);
-    // console.log(`Minted ${150} ${token.ticker} to ${"0x15C289f9646474C6BF7fF0E3bf313FBcB8b33A4C"}`);
+    // await mintWithDelay(tokenContract, "0x898c6F7bD2cDaEfcA404699825efFc841d7eA299", 150000000000000000000, token.ticker);
+    // console.log(`Minted ${150} ${token.ticker} to ${"0x898c6F7bD2cDaEfcA404699825efFc841d7eA299"}`);
     // await mintWithDelay(tokenContract, "0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6", 150, token.ticker);
     // console.log(`Minted ${150} ${token.ticker} to ${"0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6"}`);
     // await mintWithDelay(tokenContract, "0x199d51a2Be04C65f325908911430E6FF79a15ce3", 150, token.ticker);
