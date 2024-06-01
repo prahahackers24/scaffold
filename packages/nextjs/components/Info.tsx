@@ -8,6 +8,8 @@ import React from "react";
 export const Info = () => {
   return (
     <div id="info" className="mx-auto max-w-[900px]">
+      
+      <h2 className="text-4xl font-bold  mt-24 mb-4">About the project</h2>
       <p>
         Unlike other donation dApp, this one accepts all kids of ERC20 tokens! All the memecoins, barely-worth-it
         airdrops and random legacy coins usually just lie in out wallets. With Donation Appreciation, we can put them
@@ -90,8 +92,8 @@ export const Info = () => {
         <div className="flex justify-center items-center p-2 bg-white rounded-lg shadow">
           <img src="./the-graph.jpeg" alt="Logo 3" className="h-16 max-w-full object-contain" />
         </div>
-        <div className="flex justify-center items-center p-4 bg-white rounded-lg shadow">
-          <img src="path/to/logo4.png" alt="Logo 4" className="h-16 max-w-full object-contain" />
+        <div className="flex justify-center items-center p-0 bg-white rounded-lg shadow">
+          <img src="./thumbnail.jpg" alt="Logo 4" className="h-24 max-w-full object-contain" />
         </div>
       </div>
 
@@ -136,10 +138,6 @@ export const Info = () => {
           
         </div>
       </div>
-
-      <h3 className="text-xl font-bold  mt-12 mb-4">Team</h3>
-
-      <h3 className="text-xl font-bold  mt-12 mb-4">Built at</h3>
     </div>
   );
 };

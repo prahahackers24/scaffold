@@ -21,11 +21,16 @@ export const Card: React.FC<CardProps> = ({ imgSrc, title, description, isLive, 
       <figure>
         <img src={imgSrc} alt="Shoes" />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <p>{'Owner'}</p>
-        <Address  address={campaignOwner} />
-        <div className="card-actions justify-end">
+      <div className="card-body p-4">
+        <h2 className="card-title text-md">{title}</h2>
+        <p className="text-sm">{description}</p>
+        
+        <div className="flex flex-row text-sm opacity-50">
+        <p>{'Owner: '}</p>
+        <Address  address={campaignOwner} size={"sm"}/>
+        </div>
+        
+        <div className="card-actions justify-center">
           <Link href={`/campaign/${campaignId}`}>
           <button className="btn btn-primary">Donate Now!</button>
           </Link>

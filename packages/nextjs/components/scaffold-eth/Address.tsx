@@ -93,11 +93,11 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
   return (
     <div className="flex items-center">
       <div className="flex-shrink-0">
-        <BlockieAvatar
+        {/* <BlockieAvatar
           address={checkSumAddress}
           ensImage={ensAvatar}
-          size={(blockieSizeMap[size] * 24) / blockieSizeMap["base"]}
-        />
+          size={(blockieSizeMap[size] * 16) / blockieSizeMap["base"]}
+        /> */}
       </div>
       {disableAddressLink ? (
         <span className={`ml-1.5 text-${size} font-normal`}>{displayAddress}</span>
@@ -131,7 +131,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
           }}
         >
           <DocumentDuplicateIcon
-            className="ml-1.5 text-xl font-normal text-sky-600 h-5 w-5 cursor-pointer"
+            className="ml-0.5 text-md font-normal text-sky-600 h-4 w-4 cursor-pointer"
             aria-hidden="true"
           />
         </CopyToClipboard>
