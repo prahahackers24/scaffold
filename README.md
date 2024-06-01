@@ -6,7 +6,7 @@
   <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
-Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and USDC target for the donation. When the donation hits the target (in USDC), UniSwap hooks are used to swap all tokens for USDC, before transferring the USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
+Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and $USDC target for the donation. When the donation hits the target (in $USDC), UniSwap is used to swap all tokens for $USDC, before transferring the $USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
 
 ⚙️ Built using EigenLayer, The Graph, Uniswap NextJS, Hardhat, and Wagmi.
 
@@ -22,13 +22,15 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ### Eigenlayer - Best use of EigenLayer AVS
 
-We created our own Eigenlayer AVS.
+We created our own Eigenlayer AVS to verify the total value of the donated ERC20 in a single campaign are at least equal to the campaign target in $USDC. When the EigenLayer stakers verify this, the campaign can close, swap all tokens to the target value in $USDC. When the swap is completed but the value turns out to be lower than the campaign target, validators get slashed. It's easy to verify, so the bonding period to withdraw can be very short in our case.
 
 Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this.
 
-### Uniswap Foundation - Hook Features
+### Uniswap Foundation - Track 3: Pool Operators & Research
 
 We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap.
+
+- [PoolBatchSwapTest Contract on Sepolia](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
 
 ### The Graph - Best New Subgraph
 
