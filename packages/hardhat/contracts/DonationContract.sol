@@ -51,6 +51,7 @@ contract DonationContract {
 			_tokenAddresses.length == _tokenAmounts.length,
 			"Array length mismatch"
 		);
+		require(_tokenAddresses.length > 0, "No tokens to donate");
 
 		for (uint i = 0; i < _tokenAddresses.length; i++) {
 			IERC20 token = IERC20(_tokenAddresses[i]);

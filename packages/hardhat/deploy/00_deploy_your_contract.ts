@@ -51,4 +51,4 @@ export default deployDonationContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags DonationContract
-deployDonationContract.tags = ["DonationContract"];
+deployDonationContract.tags = ["contract"];
