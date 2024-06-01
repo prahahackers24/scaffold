@@ -8,7 +8,7 @@
   <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
-Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and $USDC target for the donation. When the donation hits the target (in $USDC), UniSwap is used to swap all tokens for $USDC, before transferring the $USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
+Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and $USDC target for the donation. When the donation hits the target value (in $USDC), UniSwap is used to swap all tokens for $USDC, before transferring the $USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we created an EigenLayer AVS that verifies this.
 
 ⚙️ Built using EigenLayer, The Graph, Uniswap NextJS, Hardhat, and Wagmi.
 
@@ -59,6 +59,12 @@ We created a unique batch swap feature to make our donation dApp more gas effici
 - [DonationContract.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x77C461C1E180DD6A08A17E74bFb5207e44c7aC7f#code)
 - [PoolBatchSwapTest.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x7868c79421a36a00B0DF2c2C5254aBf89B98eA34#code)
 
+### Mantle - Best UX/UI project
+
+Our donation tool accepts any ERC20 token and multiple ones can be sent in one transaction. This not only saves gas, but is probably the only way to directly donate all the random memecoins or other tokens sitting in our wallets. 
+
+Creating a fundraising campaign is also a matter of a few clicks. Anyone can start accepting donations in any token, and eventually have them automatically converted to USDC.
+
 ### Optimism - Prototype a Superchain Superpower
 
 The BatchSwap contract can leverage new usecases, such as the Donation Appreciation showcases. The BatchSwap is a gas efficient way to convert your portfolio to stables or ETH with one single transaction.
@@ -99,6 +105,7 @@ What can be improved?
 
 - **Cross-chain campaigns -** Currently, each campaign lives on a single chain. We are investigating the possibility of making campaigns cross-chain. This means executing the swap function on each chain simultaneously. Is it possible to have an EigenLayer AVS that validates data across different chains?
 - **Filter out potential malicious actors -** Use new AVS to filter donation creators (only accept legitimate fundraisers).
+- **Optional filtering of accepted tokens -** Campaigns could be directed to a more specific community.
 
 ## Team
 
