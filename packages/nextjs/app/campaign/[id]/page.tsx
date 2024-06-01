@@ -12,7 +12,7 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
   return (
    <>
    <div className='flex justify-center'>
-   <CampaignPageComponent />
+   <CampaignPageComponent pageId={params.id} />
 
    </div>
    </>
