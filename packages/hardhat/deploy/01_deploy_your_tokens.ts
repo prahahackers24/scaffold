@@ -15,8 +15,6 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     { name: "TheGraph", ticker: "GRT" },
   ];
 
-  let approvalTexts = []
-
   for (const token of tokenDetails) {
     console.log('waiting 1 second')
     await new Promise((resolve) => setTimeout(resolve, 5000)); // 1000 milliseconds = 1 second
@@ -35,7 +33,18 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     const network = hre.network.name;
 
     const tokenContract = await hre.ethers.getContract<Contract>(token.ticker, deployer);
-    // await tokenContract.approve("0x24cE7Bdf867de81e6A910982d658e423ad3DA3C9", "99999999999999999999999999999");
+    
+    //approve our contract
+    await tokenContract.approve("0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6", "99999999999999999999999999999");
+
+    // //approve  swap router
+    // await tokenContract.approve("0x841b5a0b3dbc473c8a057e2391014aa4c4751351", "99999999999999999999999999999");
+
+    // //approve pool contract
+    // await tokenContract.approve("0x39bf2eff94201cfaa471932655404f63315147a4", "99999999999999999999999999999");
+
+    //approve pool manager
+    await tokenContract.approve("0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6", "99999999999999999999999999999");
     // TODO: create uniswap pool
 
     console.log(`Deployed ${token.ticker}  at ${contractAddress} on ${network}`);

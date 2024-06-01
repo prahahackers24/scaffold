@@ -119,6 +119,10 @@ contract DonationContract {
 
 		//
 		for (uint i = 0; i < tokenAddresses.length; i++) {
+			if (campaign.tokenAddresses[i] == campaign.goalToken) {
+				// skip goal token
+				continue;
+			}
 			PoolKey memory key = PoolKey({
 				currency0: Currency.wrap(tokenAddresses[i]),
 				currency1: Currency.wrap(campaign.goalToken),
@@ -127,7 +131,8 @@ contract DonationContract {
 				tickSpacing: 10 // TODO what value?
 			});
 			uint tokenAmount = campaign.tokenAmounts[tokenAddresses[i]];
-			swap(key, int256(tokenAmount), true, "");
+
+			swap(key, int256(tokenAmount), true);
 		}
 
 		emit CampaignClosed(_campaignId);
@@ -143,16 +148,14 @@ contract DonationContract {
 	/// @param key the pool where the swap is happening
 	/// @param amountSpecified the amount of tokens to swap. Negative is an exact-input swap
 	/// @param zeroForOne whether the swap is token0 -> token1 or token1 -> token0
-	/// @param hookData any data to be passed to the pool's hook
 	function swap(
 		PoolKey memory key,
 		int256 amountSpecified,
-		bool zeroForOne,
-		bytes memory hookData
+		bool zeroForOne
 	) internal {
 		IPoolManager.SwapParams memory params = IPoolManager.SwapParams({
 			zeroForOne: zeroForOne,
-			amountSpecified: amountSpecified,
+			amountSpecified: -amountSpecified,
 			sqrtPriceLimitX96: zeroForOne ? MIN_PRICE_LIMIT : MAX_PRICE_LIMIT // unlimited impact
 		});
 
@@ -161,24 +164,21 @@ contract DonationContract {
 		PoolSwapTest.TestSettings memory testSettings = PoolSwapTest
 			.TestSettings({ takeClaims: false, settleUsingBurn: false });
 
+		bytes memory hookData = new bytes(0);
 		swapRouter.swap(key, params, testSettings, hookData);
 	}
 
 	/// @notice Swap tokens
 	/// @param keys The pools where the swaps are happening
 	/// @param amountsSpecified The amounts of tokens to swap. Negative is an exact-input swap
-	/// @param zeroForOnes Whether the swaps are token0 -> token1 or token1 -> token0
-	/// @param hookData Any data to be passed to the pool's hook
+	/// @param zeroForOne Whether the swaps are token0 -> token1 or token1 -> token0
 	function batchSwap(
 		PoolKey[] memory keys,
 		int256[] memory amountsSpecified,
-		bool[] memory zeroForOnes,
-		bytes[] memory hookData
-	) external payable {
+		bool zeroForOne
+	) internal {
 		require(
-			keys.length == amountsSpecified.length &&
-				amountsSpecified.length == zeroForOnes.length &&
-				zeroForOnes.length == hookData.length,
+			keys.length == amountsSpecified.length,
 			"Array lengths must match"
 		);
 
@@ -188,9 +188,9 @@ contract DonationContract {
 
 		for (uint256 i = 0; i < keys.length; i++) {
 			params[i] = IPoolManager.SwapParams({
-				zeroForOne: zeroForOnes[i],
+				zeroForOne: zeroForOne,
 				amountSpecified: amountsSpecified[i],
-				sqrtPriceLimitX96: zeroForOnes[i]
+				sqrtPriceLimitX96: zeroForOne
 					? MIN_PRICE_LIMIT
 					: MAX_PRICE_LIMIT
 			});
@@ -199,6 +199,22 @@ contract DonationContract {
 		PoolBatchSwapTest.TestSettings memory testSettings = PoolBatchSwapTest
 			.TestSettings({ takeClaims: false, settleUsingBurn: false });
 
+		bytes memory hookData = new bytes(0);
+
+		// do we need to give router permission?
 		batchSwapRouter.swap(keys, params, testSettings, hookData);
+	}
+
+	// testing
+
+	function makeSwap(PoolKey memory key, int256 amountSpecified) public {
+		swap(key, amountSpecified, true);
+	}
+
+	function makeBatchSwap(
+		PoolKey[] memory keys,
+		int256[] memory amountsSpecified
+	) public {
+		batchSwap(keys, amountsSpecified, true);
 	}
 }

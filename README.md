@@ -2,8 +2,8 @@
 
 <h4 align="center">
 ![logo](logo.png)
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
+  <a href="">Devfolio</a> |
+  <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
 Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and USDC target for the donation. When the donation hits the target (in USDC), UniSwap hooks are used to swap all tokens for USDC, before transferring the USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
@@ -27,6 +27,8 @@ We created our own Eigenlayer AVS.
 Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this.
 
 ### Uniswap Foundation - Hook Features
+
+We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but is a showcase the novel applications of batch swapping that are possible on Uniswap.
 
 ### The Graph - Best New Subgraph
 
@@ -75,8 +77,8 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 What can be improved?
 
-- **Cross chain campaigns -** Currently each campaign lives on a single chain. We are investigating the possibility of making campaigns cross-chain. This means executing the swap function on each chain similtaniously. Is it possible to have an EigenLayer AVS that validates data across different chains?
-- **Filter our potential malicious actors -** Use new AVS to filter on donation creators (only accept legitimate fundraisers)
+- **Cross-chain campaigns -** Currently, each campaign lives on a single chain. We are investigating the possibility of making campaigns cross-chain. This means executing the swap function on each chain simultaneously. Is it possible to have an EigenLayer AVS that validates data across different chains?
+- **Filter out potential malicious actors -** Use new AVS to filter donation creators (only accept legitimate fundraisers).
 
 ## Team
 

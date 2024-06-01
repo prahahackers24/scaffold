@@ -114,6 +114,11 @@ const deployedContracts = {
               name: "_batchSwapContract",
               type: "address",
             },
+            {
+              internalType: "address",
+              name: "_swapRouter",
+              type: "address",
+            },
           ],
           stateMutability: "nonpayable",
           type: "constructor",
@@ -186,6 +191,32 @@ const deployedContracts = {
           ],
           name: "DonationReceived",
           type: "event",
+        },
+        {
+          inputs: [],
+          name: "MAX_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MIN_PRICE_LIMIT",
+          outputs: [
+            {
+              internalType: "uint160",
+              name: "",
+              type: "uint160",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
         },
         {
           inputs: [],
@@ -294,6 +325,96 @@ const deployedContracts = {
             },
           ],
           name: "donate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey[]",
+              name: "keys",
+              type: "tuple[]",
+            },
+            {
+              internalType: "int256[]",
+              name: "amountsSpecified",
+              type: "int256[]",
+            },
+          ],
+          name: "makeBatchSwap",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "Currency",
+                  name: "currency0",
+                  type: "address",
+                },
+                {
+                  internalType: "Currency",
+                  name: "currency1",
+                  type: "address",
+                },
+                {
+                  internalType: "uint24",
+                  name: "fee",
+                  type: "uint24",
+                },
+                {
+                  internalType: "int24",
+                  name: "tickSpacing",
+                  type: "int24",
+                },
+                {
+                  internalType: "contract IHooks",
+                  name: "hooks",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PoolKey",
+              name: "key",
+              type: "tuple",
+            },
+            {
+              internalType: "int256",
+              name: "amountSpecified",
+              type: "int256",
+            },
+          ],
+          name: "makeSwap",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -3057,9 +3178,9 @@ const deployedContracts = {
               type: "tuple",
             },
             {
-              internalType: "bytes[]",
+              internalType: "bytes",
               name: "hookData",
-              type: "bytes[]",
+              type: "bytes",
             },
           ],
           name: "swap",

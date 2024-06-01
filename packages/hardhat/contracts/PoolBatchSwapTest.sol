@@ -23,7 +23,7 @@ contract PoolBatchSwapTest is PoolTestBase {
 		TestSettings testSettings;
 		PoolKey[] keys;
 		IPoolManager.SwapParams[] params;
-		bytes[] hookData;
+		bytes hookData;
 	}
 
 	struct TestSettings {
@@ -35,12 +35,9 @@ contract PoolBatchSwapTest is PoolTestBase {
 		PoolKey[] memory keys,
 		IPoolManager.SwapParams[] memory params,
 		TestSettings memory testSettings,
-		bytes[] memory hookData
+		bytes memory hookData
 	) external payable returns (BalanceDelta[] memory deltas) {
-		require(
-			keys.length == params.length && params.length == hookData.length,
-			"Array lengths must match"
-		);
+		require(keys.length == params.length, "Array lengths must match");
 
 		deltas = new BalanceDelta[](keys.length);
 
@@ -66,7 +63,7 @@ contract PoolBatchSwapTest is PoolTestBase {
 		for (uint256 i = 0; i < data.keys.length; i++) {
 			PoolKey memory key = data.keys[i];
 			IPoolManager.SwapParams memory params = data.params[i];
-			bytes memory hookData = data.hookData[i];
+			bytes memory hookData = data.hookData;
 
 			(, , int256 deltaBefore0) = _fetchBalances(
 				key.currency0,
