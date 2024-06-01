@@ -51,7 +51,7 @@ useEffect(() => {
 
 
   return (
-    <div className="grid grid-cols-3 mx-auto mt-8 items-center">
+    <div className="grid  grid-cols-4 mx-auto mt-8 items-center">
          {campaigns.map((campaign) => (
         <Card
           key={campaign.campaignId}
