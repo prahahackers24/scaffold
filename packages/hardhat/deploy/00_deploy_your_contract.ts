@@ -28,8 +28,8 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
   let batchSwapRouter = "";
 
   if (network ==  "sepolia") {
-    swapRouter = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"
-    batchSwapRouter = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"
+    swapRouter = "0x841B5A0b3DBc473c8A057E2391014aa4C4751351"
+    batchSwapRouter = "0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34"
 
   }
 

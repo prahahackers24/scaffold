@@ -22,9 +22,6 @@ const deployPoolBatchSwapTestAndBatchSwap: DeployFunction = async function (hre:
 
 
   // Deploy PoolBatchSwapTest contract
-  console.log('waiting 1 second')
-  await new Promise((resolve) => setTimeout(resolve, 25000)); // 1000 milliseconds = 1 second
-  console.log('waited 1 second')
   const poolBatchSwapTestDeployment = await deploy("PoolBatchSwapTest", {
     from: deployer,
     args: [pool_manager], // Constructor arguments if any
