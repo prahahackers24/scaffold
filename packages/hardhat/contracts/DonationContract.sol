@@ -36,7 +36,9 @@ contract DonationContract {
 	event CampaignCreated(
 		uint campaignId,
 		address campaignOwner,
-		string campaignName
+		string campaignName,
+		uint goalAmount,
+		address goalToken
 	);
 	event CampaignClosed(uint campaignId);
 	event DonationReceived(
