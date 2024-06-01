@@ -1,0 +1,8 @@
+query CampaignsQuery {{
+  campaigns(first: 5) {
+    campaignId,
+    campaignOwner,
+    isLive,
+    campaignName
+  }
+}}

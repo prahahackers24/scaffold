@@ -67,7 +67,7 @@ const config: HardhatUserConfig = {
       accounts: [deployerPrivateKey],
     },
 
-    linea: {
+    linea_sepolia: {
       url: `https://linea-sepolia.infura.io/v3/${infuraApiKey}`,
       accounts: [deployerPrivateKey],
     },
@@ -84,11 +84,11 @@ const config: HardhatUserConfig = {
       mainnet: etherscanApiKey,
       sepolia: etherscanApiKey,
       holesky: etherscanApiKey,
-      optimismSepolia: etherscanApiKey,
-      polygonZkEvmTestnet: etherscanApiKey,
+      optimismSepolia: process.env.OPTIMISM_API_KEY || "",
+      polygonZkEvmTestnet: process.env.POLYGON_API_KEY || "",
       mantleTest: process.env.MANTLESCAN_API_KEY || "",
-      linea: etherscanApiKey,
-      zircuit: etherscanApiKey,
+      linea_sepolia: process.env.LINEASCAN_API_KEY || "",
+      zircuit: process.env.ZIRCUIT_API_KEY || "",
     },
     customChains: [
       {
@@ -111,32 +111,32 @@ const config: HardhatUserConfig = {
         network: "optimismSepolia",
         chainId: 11155420, // Example Chain ID, verify and update
         urls: {
-          apiURL: "https://api-optimistic.etherscan.io/api",
-          browserURL: "https://optimistic.etherscan.io",
+          apiURL: "https://api-sepolia-optimistic.etherscan.io/api",
+          browserURL: "https://sepolia-optimism.etherscan.io/",
         },
       },
       {
         network: "polygonZkEvmTestnet",
         chainId: 2442, // Example Chain ID, verify and update
         urls: {
-          apiURL: "https://api-testnet-zkevm.polygonscan.com/api",
-          browserURL: "https://testnet-zkevm.polygonscan.com",
+          apiURL: "https://api-cardona-zkevm.polygonscan.com/api",
+          browserURL: "https://cardona-zkevm.polygonscan.com/",
         },
       },
       {
-        network: "linea",
-        chainId: 59141, // Example Chain ID, verify and update
+        network: "linea_sepolia",
+        chainId: 59141,
         urls: {
-          apiURL: "https://linea-sepolia.infura.io/v3/",
-          browserURL: "https://sepolia.lineascan.build",
+          apiURL: "https://api-sepolia.lineascan.build/api",
+          browserURL: "https://sepolia.lineascan.build/address",
         },
       },
       {
         network: "zircuit",
-        chainId: 48899, // Example Chain ID, verify and update
+        chainId: 48899,
         urls: {
-          apiURL: "https://api.zircuit.io/api",
-          browserURL: "https://zircuit.io",
+          apiURL: "https://explorer.zircuit.com/api/contractVerifyHardhat",
+          browserURL: "https://explorer.zircuit.com",
         },
       },
     ],

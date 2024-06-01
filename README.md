@@ -30,6 +30,10 @@ Also we fixed a bug in the Hello World repo, which caused issues when executing 
 
 ### The Graph - Best New Subgraph
 
+To query campaigns we created a subgraph that qustores eries newly created campaigns as Campaign entities. When donations are made or the campaign is closed, the Campaign entity is updated. We use the subgraph to query campaigns and show them on the overview page. Also we query individual campaigns to show the donation status and amounts on the campaign page.
+
+- [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
+
 ### Linea - Build any dapp on Linea
 
 ### Mantle - Best DeFi project
@@ -50,6 +54,7 @@ Also we fixed a bug in the Hello World repo, which caused issues when executing 
 - [Presentation slides]()
 - [Demo video]()
 - [Github ](https://github.com/prahahackers24/scaffold)
+- [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
 
 ### Verified Smart Contracts
 
