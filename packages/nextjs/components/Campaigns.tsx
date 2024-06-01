@@ -14,14 +14,14 @@ const Campaigns = () => {
 
 
 
-  const APIURL = 'https://api.studio.thegraph.com/query/77157/donations/v0.0.2'
+  const APIURL = 'https://api.studio.thegraph.com/query/72991/donation/version/latest'
 
 const tokensQuery = `
-query {
-  campaignCreateds(first: 5) {
-    id
-    campaignId
-    campaignOwner
+{
+  campaigns(first: 5) {
+    campaignId,
+    campaignOwner,
+    isLive,
     campaignName
   }
 }
@@ -40,7 +40,7 @@ useEffect(() => {
         query: gql(tokensQuery),
         fetchPolicy: 'no-cache',
       });
-      setCampaigns(data.campaignCreateds);
+      setCampaigns(data.campaigns);
     } catch (err) {
       console.log('Error fetching data: ', err);
     }
@@ -52,7 +52,7 @@ useEffect(() => {
 
   return (
     <div className="grid  grid-cols-3 mx-auto mt-8 items-center">
-         {campaigns.map((campaign) => (
+         {campaigns ? campaigns.map((campaign) => (
         <Card
           key={campaign.campaignId}
           imgSrc="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
@@ -62,7 +62,7 @@ useEffect(() => {
           campaignId={campaign.campaignId}
           description={'Tester campaign'}
         />
-      ))}
+      )) : <div>Loading...</div>}
     </div>
   )
 }

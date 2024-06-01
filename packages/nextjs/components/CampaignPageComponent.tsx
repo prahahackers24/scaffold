@@ -33,6 +33,15 @@ const CampaignPageComponent = ({pageId} : any) => {
       imgSrc: "/camp_ukraine.jpeg",
       title: "We stand with Ukraine"
     },
+    "4": {
+      imgSrc: "/camp_warming.jpeg",
+      title: "Climate Change Fund"
+    },
+    "5": {
+      imgSrc: "/camp_india.jpeg",
+      title: "Education Fund"
+    },
+    
    }
 
   const [campaign, setCampaign] = useState<Campaign | null>(null);
@@ -76,7 +85,7 @@ const CampaignPageComponent = ({pageId} : any) => {
 
 
        
-      <CoinsDonationComponent />
+      <CoinsDonationComponent pageId={pageId} />
     </div>
   )
 }
