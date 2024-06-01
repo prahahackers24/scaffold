@@ -58,7 +58,7 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 ### Verified Smart Contracts
 
-#### Donation contract
+#### Donation Contract
 
 - [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
@@ -67,7 +67,12 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 - [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 
-#### Eigenlayer Smart Contracts
+#### Eigenlayer Contract
+
+#### Uniswap Contracts
+
+- [PoolBatchSwapTest](https://holesky.etherscan.io/address/0xf316bc0Eb4A285a57741BdA7bD93cA23C74Ac929#code)
+- [Swap](https://holesky.etherscan.io/address/0x5F66D360C145738a2F217CfBc95E84e586cabCB8#code)
 
 ## Team
 
