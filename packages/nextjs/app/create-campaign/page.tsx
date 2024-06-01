@@ -1,18 +1,42 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
+import { parseEther } from 'viem'
 
 const CreateCampaign: React.FC = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [emoji, setEmoji] = useState('');
   const [desiredAmount, setDesiredAmount] = useState('');
+  const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("DonationContract");
+
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log({ name, description, emoji, desiredAmount });
     // Handle form submission, e.g., send data to the backend
   };
+
+   async function createCampaign() {
+ 
+        try {
+          await writeYourContractAsync({
+            functionName: "createCampaign",
+            args: [name, "0x865981cad2e01237a47f765f46e3e19f3a1cdfcc",  
+            parseEther(`${desiredAmount}`)],
+    
+          });
+        } catch (e) {
+          console.error("Error setting greeting:", e);
+        }
+    }
+
+
+
+   
+
 
   return (
     <div className="flex justify-center items-center min-h-screen ">
@@ -75,7 +99,7 @@ const CreateCampaign: React.FC = () => {
           </div>
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary w-full">Create Campaign</button>
+            <button type="submit" className="btn btn-primary w-full" onClick={() => createCampaign()}>Create Campaign</button>
           </div>
         </form>
       </div>
