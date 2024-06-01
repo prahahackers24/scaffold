@@ -7656,7 +7656,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     DonationContract: {
-      address: "0x6D141F14b8be1C7B4aB2924CFba1819baDCd58c2",
+      address: "0x015c05c99467aca9eb8313bFe836c75067C01ce8",
       abi: [
         {
           inputs: [

@@ -58,7 +58,7 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 ### Donation Contract
 
-- [Smart contract on Holesky](https://sepolia.etherscan.io/address/0x015c05c99467aca9eb8313bFe836c75067C01ce8#code)
+- [Smart contract on Sepolia](https://sepolia.etherscan.io/address/0x015c05c99467aca9eb8313bFe836c75067C01ce8#code)
 - [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Linea Testnet](https://sepolia.lineascan.build/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
