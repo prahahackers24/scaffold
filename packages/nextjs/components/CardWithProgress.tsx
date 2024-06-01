@@ -5,12 +5,13 @@ interface CardProps {
     imgSrc: string;
     title: string;
     description: string;
+    donationGoal?: number;
   }
   
   /**
    * Fundraiser Card
    */
-  export const CardWithProgress: React.FC<CardProps> = ({ imgSrc, title, description }) => {
+  export const CardWithProgress: React.FC<CardProps> = ({ imgSrc, title, description, donationGoal }) => {
   return (
     <div className="card bg-base-100 shadow-xl m-2 p-0">
     <figure>
@@ -22,7 +23,7 @@ interface CardProps {
       <div>
         <div className='flex justify-between'>
          <p className='font-bold text-success text-xl'>40%</p>
-         <p className='font-bold text-white text-xl text-end'>500USDT</p>
+         <p className='font-bold text-white text-xl text-end'>{donationGoal} USDC</p>
         </div>
       <progress className="progress progress-success h-3 w-full" value="40" max="100"></progress>
       </div>
