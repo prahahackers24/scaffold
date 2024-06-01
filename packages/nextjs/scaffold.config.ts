@@ -17,7 +17,7 @@ const scaffoldConfig = {
     chains.holesky,
     chains.optimismSepolia,
     chains.mantleSepoliaTestnet,
-    // chains.zircuit, // not availble?
+    chains.zircuit, // not availble?
     chains.lineaSepolia,
     chains.polygonZkEvmCardona,
     zircuit
