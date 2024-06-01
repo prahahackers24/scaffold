@@ -16,9 +16,9 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   ];
 
   for (const token of tokenDetails) {
-    console.log('waiting 1 second')
-    await new Promise((resolve) => setTimeout(resolve, 5000)); // 1000 milliseconds = 1 second
-    console.log('waited 1 second')
+  //   console.log('waiting 1 second')
+  //   await new Promise((resolve) => setTimeout(resolve, 5000)); // 1000 milliseconds = 1 second
+  //   console.log('waited 1 second')
     const deployment = await deploy(token.ticker, {
       contract: `contracts/tokens/${token.ticker}.sol:${token.ticker}`,
       from: deployer,
@@ -35,7 +35,7 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     const tokenContract = await hre.ethers.getContract<Contract>(token.ticker, deployer);
     
     //approve our contract
-    await tokenContract.approve("0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6", "99999999999999999999999999999");
+    await tokenContract.approve("0x6D141F14b8be1C7B4aB2924CFba1819baDCd58c2", "99999999999999999999999999999");
 
     // //approve  swap router
     // await tokenContract.approve("0x841b5a0b3dbc473c8a057e2391014aa4c4751351", "99999999999999999999999999999");
@@ -43,7 +43,7 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     // //approve pool contract
     // await tokenContract.approve("0x39bf2eff94201cfaa471932655404f63315147a4", "99999999999999999999999999999");
 
-    //approve pool manager
+    //approve swap router
     await tokenContract.approve("0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6", "99999999999999999999999999999");
     // TODO: create uniswap pool
 
@@ -56,14 +56,14 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
       await tokenContract.mint(recipient, amount);
       console.log(`Minted ${amount} ${ticker} to ${recipient}`);
     }
-    await mintWithDelay(tokenContract, "0x898c6F7bD2cDaEfcA404699825efFc841d7eA299", 150, token.ticker);
-    console.log(`Minted ${150} ${token.ticker} to ${"0x898c6F7bD2cDaEfcA404699825efFc841d7eA299"}`);
-    await mintWithDelay(tokenContract, "0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6", 150, token.ticker);
-    console.log(`Minted ${150} ${token.ticker} to ${"0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6"}`);
-    await mintWithDelay(tokenContract, "0x199d51a2Be04C65f325908911430E6FF79a15ce3", 150, token.ticker);
-    console.log(`Minted ${150} ${token.ticker} to ${"0x199d51a2Be04C65f325908911430E6FF79a15ce3"}`);
-    await mintWithDelay(tokenContract, "0xF41e35e1b3a9C2DA397FA8a13bd1EF7989AB9017", 150, token.ticker);
-    console.log(`Minted ${150} ${token.ticker} to ${"0xF41e35e1b3a9C2DA397FA8a13bd1EF7989AB9017"}`);
+    // await mintWithDelay(tokenContract, "0x898c6F7bD2cDaEfcA404699825efFc841d7eA299", 150, token.ticker);
+    // console.log(`Minted ${150} ${token.ticker} to ${"0x898c6F7bD2cDaEfcA404699825efFc841d7eA299"}`);
+    // await mintWithDelay(tokenContract, "0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6", 150, token.ticker);
+    // console.log(`Minted ${150} ${token.ticker} to ${"0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6"}`);
+    // await mintWithDelay(tokenContract, "0x199d51a2Be04C65f325908911430E6FF79a15ce3", 150, token.ticker);
+    // console.log(`Minted ${150} ${token.ticker} to ${"0x199d51a2Be04C65f325908911430E6FF79a15ce3"}`);
+    // await mintWithDelay(tokenContract, "0xF41e35e1b3a9C2DA397FA8a13bd1EF7989AB9017", 150, token.ticker);
+    // console.log(`Minted ${150} ${token.ticker} to ${"0xF41e35e1b3a9C2DA397FA8a13bd1EF7989AB9017"}`);
   }
 };
 

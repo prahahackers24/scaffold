@@ -2,7 +2,7 @@
 
 <h4 align="center">
 ![logo](logo.png)
-  <a href="">Devfolio</a> |
+  <a href="https://devfolio.co/project/new/donation-appreciation-2259">Devfolio</a> |
   <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
@@ -49,9 +49,11 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 ## Links
 
 - [Vercel deployment](https://donationappreciation.vercel.app/)
+- [Devfolio project](https://devfolio.co/project/new/donation-appreciation-2259)
 - [Presentation slides]()
 - [Demo video]()
-- [Github ](https://github.com/prahahackers24/scaffold)
+- [Github dApp repo](https://github.com/prahahackers24/scaffold)
+- [Github AVS repo](https://github.com/prahahackers24/scaffold)
 - [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
 
 ### Donation Contract

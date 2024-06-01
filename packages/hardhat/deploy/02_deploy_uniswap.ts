@@ -36,20 +36,6 @@ const deployPoolBatchSwapTestAndBatchSwap: DeployFunction = async function (hre:
   // Get the deployed PoolBatchSwapTest contract address
   const poolBatchSwapTestAddress = poolBatchSwapTestDeployment.address;
 
-  // Deploy BatchSwap contract with the PoolBatchSwapTest contract address
-  console.log('waiting 1 second')
-  await new Promise((resolve) => setTimeout(resolve, 25000)); // 1000 milliseconds = 1 second
-  console.log('waited 1 second')
-  const batchSwapDeployment = await deploy("BatchSwap", {
-    from: deployer,
-    args: [poolBatchSwapTestAddress], // Pass the PoolBatchSwapTest address as a constructor argument
-    log: true,
-    autoMine: true,
-
-  });
-
-  const batchSwapAddress = batchSwapDeployment.address;
-  const network = hre.network.name; // Dynamically get the network name
 
   console.log(`PoolBatchSwapTest deployed at: ${poolBatchSwapTestAddress}`);
   console.log(`To verify contracts, run:`);
