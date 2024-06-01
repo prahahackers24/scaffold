@@ -5709,7 +5709,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     ZRC: {
-      address: "0x28d0683Ae04aD3b78929f32DccE70001FA146689",
+      address: "0xf83b36a40Cb1F0e88A8Ae74cbB2FdcB2670c5e48",
       abi: [
         {
           inputs: [
