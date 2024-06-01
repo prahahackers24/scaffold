@@ -177,13 +177,13 @@ contract DonationContract {
 				adjustedZeroForOnes[j] = zeroForOnes[j];
 			}
 
-			batchSwap(
-				adjustedKeys,
-				adjustedAmountsSpecified,
-				adjustedZeroForOnes
-			);
+			// batchSwap(
+			// 	adjustedKeys,
+			// 	adjustedAmountsSpecified,
+			// 	adjustedZeroForOnes
+			// );
 		} else {
-			batchSwap(keys, amountsSpecified, zeroForOnes);
+			// batchSwap(keys, amountsSpecified, zeroForOnes);
 		}
 
 		emit CampaignClosed(_campaignId);

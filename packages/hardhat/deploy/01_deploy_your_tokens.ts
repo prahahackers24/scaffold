@@ -38,7 +38,7 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     const tokenContract = await hre.ethers.getContract<Contract>(token.ticker, deployer);
     
     //approve our contract
-    await tokenContract.approve("0x38D00054A36bc865077A129489074AF7e9899C3a", "99999999999999999999999999999");
+    await tokenContract.approve("0x4095001D8d00C2c7f38b659173f9a2F2F1781A16", "99999999999999999999999999999");
 
     console.log(`Deployed ${token.ticker}  at ${contractAddress} on ${network}`);
     console.log(`yarn hardhat verify "${contractAddress}" --network ${network} "${initialSupply}"`);

@@ -34,9 +34,10 @@ Also we fixed a bug in the Hello World repo, which caused issues when executing 
 
 ### Uniswap Foundation - Track 3: Pool Operators & Research
 
-We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap.
+We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap. We deployed and verified the contract on Sepolia testnet, and included a testfile in a seperate repo (using Foundry).
 
 - [PoolBatchSwapTest Contract on Sepolia](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
+- [Forked Uniswap v4-template with tests for PoolBatchSwapTest ](https://github.com/prahahackers24/uniswap-v4-tests/blob/main/script/03_BatchSwap.s.sol)
 
 ### The Graph - Best New Subgraph
 
@@ -74,7 +75,7 @@ We created a unique donation platform that allows new ways of raising funds. The
 
 ### Zircuit - Best Hackathon Project on Zircuit
 
-Deploying in Zircuit was very easy, and also verification of the contracts was very straight forward. Only issue was the frontend intergration. On the Scaffold-ETH 2 starter repo we could integrate almost all chains, but Zircuit wasn't there. We added it manually, and will submit a PR to make it available for future developers.
+Deploying in Zircuit was very easy, and also verification of the contracts was very straight forward. Only issue was the frontend intergration. On the Scaffold-ETH 2 starter repo we could integrate almost all chains using viem, but Zircuit isn't available yet. See the available chains [here](https://github.com/wevm/viem/tree/main/src/chains/definitions). We added it manually in our project, and will submit a PR to viem to make it available for future developers.
 
 - [DonationContract.sol on Zircuit](https://explorer.zircuit.com/address/0x310256C0b02B1EF36A537427885E495533c13DeE#code)
 - [PoolBatchSwapTest.sol on Zircuit](https://explorer.zircuit.com/address/0xA54f073Cc3fBAa3091dDAe16cDb5EB550c4a17A8#code)
