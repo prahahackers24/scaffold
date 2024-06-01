@@ -145,7 +145,7 @@ contract DonationContract {
 			PoolKey memory key = PoolKey({
 				currency0: zeroForOne ? inputCurrency : outputCurrency,
 				currency1: zeroForOne ? outputCurrency : inputCurrency,
-				fee: 3000,
+				fee: 500,
 				hooks: IHooks(address(0)),
 				tickSpacing: 10
 			});
@@ -170,7 +170,7 @@ contract DonationContract {
 	) internal {
 		IPoolManager.SwapParams memory params = IPoolManager.SwapParams({
 			zeroForOne: zeroForOne,
-			amountSpecified: -amountSpecified,
+			amountSpecified: amountSpecified,
 			sqrtPriceLimitX96: zeroForOne ? MIN_PRICE_LIMIT : MAX_PRICE_LIMIT
 		});
 
@@ -180,6 +180,16 @@ contract DonationContract {
 			.TestSettings({ takeClaims: false, settleUsingBurn: false });
 
 		bytes memory hookData = new bytes(0);
+
+		IERC20(Currency.unwrap(key.currency0)).approve(
+			address(swapRouter),
+			type(uint256).max
+		);
+		IERC20(Currency.unwrap(key.currency1)).approve(
+			address(swapRouter),
+			type(uint256).max
+		);
+
 		swapRouter.swap(key, params, testSettings, hookData);
 	}
 
@@ -210,6 +220,15 @@ contract DonationContract {
 					? MIN_PRICE_LIMIT
 					: MAX_PRICE_LIMIT
 			});
+
+			IERC20(Currency.unwrap(keys[i].currency0)).approve(
+				address(swapRouter),
+				type(uint256).max
+			);
+			IERC20(Currency.unwrap(keys[i].currency1)).approve(
+				address(swapRouter),
+				type(uint256).max
+			);
 		}
 
 		PoolBatchSwapTest.TestSettings memory testSettings = PoolBatchSwapTest

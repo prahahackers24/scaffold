@@ -51,7 +51,7 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
 
   console.log(`yarn hardhat verify "${contractAddress}" --network ${network} "${swapRouter}" "${batchSwapRouter}"`);
 
-  // await donationContract.makeSwap(["0xc268035619873d85461525F5fDb792dd95982161", "0xc268035619873d85461525F5fDb792dd95982161", 0, 0, "0x0000000000000000000000000000000000000000"], 100);
+  await donationContract.makeSwap(["0xc268035619873d85461525F5fDb792dd95982161", "0xc268035619873d85461525F5fDb792dd95982161", 500, 10, "0x0000000000000000000000000000000000000000"], 10000, true);
   // await donationContract.createCampaign("Test", "0x5711a5D8e1dB96C9db0AAF3c3CEfB4403B5D230D", 100);
   // await donationContract.donate(["0x06cA44b817F9172e1BaB3a8e8a36020AeC6D7e8d"],[1],0);
     // await donationContract.closeCampaign(1);
