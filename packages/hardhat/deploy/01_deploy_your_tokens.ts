@@ -35,20 +35,7 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     const tokenContract = await hre.ethers.getContract<Contract>(token.ticker, deployer);
     
     //approve our contract
-    await tokenContract.approve("0x15c289f9646474c6bf7ff0e3bf313fbcb8b33a4c", "99999999999999999999999999999");
-
-    // // //approve  swap routert, "0x15C289f9646474C6BF7fF0E3bf313FBcB8b33A4C", 990000000000, token.ticker);
-    // console.log(`Minted ${150} ${tok
-    // await tokenContract.approve("0x841b5a0b3dbc473c8a057e2391014aa4c4751351", "99999999999999999999999999999");
-
-    // // //approve pool contract
-    // await tokenContract.approve("0x39bf2eff94201cfaa471932655404f63315147a4", "99999999999999999999999999999");
-
-    // //approve swap router
-    // await tokenContract.approve("0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6", "99999999999999999999999999999");
-    // //approve batch swap router
-    // await tokenContract.approve("0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34", "99999999999999999999999999999");
-    // TODO: create uniswap pool
+    await tokenContract.approve("0x38D00054A36bc865077A129489074AF7e9899C3a", "99999999999999999999999999999");
 
     console.log(`Deployed ${token.ticker}  at ${contractAddress} on ${network}`);
     console.log(`yarn hardhat verify "${contractAddress}" --network ${network} "${initialSupply}"`);
