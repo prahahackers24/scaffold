@@ -180,11 +180,11 @@ contract DonationContract {
 	/// @notice Swap tokens
 	/// @param keys The pools where the swaps are happening
 	/// @param amountsSpecified The amounts of tokens to swap. Negative is an exact-input swap
-	/// @param zeroForOne Whether the swaps are token0 -> token1 or token1 -> token0
+	/// @param zeroForOnes Whether the swaps are token0 -> token1 or token1 -> token0
 	function batchSwap(
 		PoolKey[] memory keys,
 		int256[] memory amountsSpecified,
-		bool zeroForOne
+		bool[] memory zeroForOnes
 	) internal {
 		require(
 			keys.length == amountsSpecified.length,
@@ -197,9 +197,9 @@ contract DonationContract {
 
 		for (uint256 i = 0; i < keys.length; i++) {
 			params[i] = IPoolManager.SwapParams({
-				zeroForOne: zeroForOne,
+				zeroForOne: zeroForOnes[i],
 				amountSpecified: amountsSpecified[i],
-				sqrtPriceLimitX96: zeroForOne
+				sqrtPriceLimitX96: zeroForOnes[i]
 					? MIN_PRICE_LIMIT
 					: MAX_PRICE_LIMIT
 			});
@@ -216,14 +216,19 @@ contract DonationContract {
 
 	// testing
 
-	function makeSwap(PoolKey memory key, int256 amountSpecified) public {
-		swap(key, amountSpecified, true);
+	function makeSwap(
+		PoolKey memory key,
+		int256 amountSpecified,
+		bool zeroForOne
+	) public {
+		swap(key, amountSpecified, zeroForOne);
 	}
 
 	function makeBatchSwap(
 		PoolKey[] memory keys,
-		int256[] memory amountsSpecified
+		int256[] memory amountsSpecified,
+		bool[] memory zeroForOnes
 	) public {
-		batchSwap(keys, amountsSpecified, true);
+		batchSwap(keys, amountsSpecified, zeroForOnes);
 	}
 }
