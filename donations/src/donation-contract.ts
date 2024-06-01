@@ -43,7 +43,7 @@ export function handleDonationReceived(event: DonationReceivedEvent): void {
   )
   entity.campaignId = event.params.campaignId
   entity.donor = event.params.donor
-  entity.tokenAddresses = event.params.tokenAddresses
+  // entity.tokenAddresses = event.params.tokenAddresses
   entity.tokenAmounts = event.params.tokenAmounts
 
   entity.blockNumber = event.block.number
