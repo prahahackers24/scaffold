@@ -9,27 +9,26 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
 
   const tokenDetails = [
     { name: "USDC", ticker: "USDC" },
-    // { name: "DogeCoin", ticker: "DOGE" },
-    // { name: "Pepe", ticker: "PEPE" },
-    // { name: "HarryPotterObamaSonic10Inu", ticker: "BITCOIN" },
     { name: "Optimism", ticker: "OP" },
     { name: "Mantle", ticker: "MNT" },
     { name: "Polygon", ticker: "MATIC" },
     { name: "TheGraph", ticker: "GRT" },
-    { name: "EigenLayer", ticker: "EIGEN" },
-    { name: "Uniswap", ticker: "UNI" },
-    { name: "Zircuit", ticker: "ZRC" },
   ];
 
   let approvalTexts = []
 
   for (const token of tokenDetails) {
+    console.log('waiting 1 second')
+    await new Promise((resolve) => setTimeout(resolve, 5000)); // 1000 milliseconds = 1 second
+    console.log('waited 1 second')
     const deployment = await deploy(token.ticker, {
       contract: `contracts/tokens/${token.ticker}.sol:${token.ticker}`,
       from: deployer,
       args: [initialSupply],
       log: true,
       autoMine: true,
+      gasPrice: `4500000000`,
+   
     });
 
     const contractAddress = deployment.address;
@@ -41,6 +40,21 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
 
     console.log(`Deployed ${token.ticker}  at ${contractAddress} on ${network}`);
     console.log(`yarn hardhat verify "${contractAddress}" --network ${network} "${initialSupply}"`);
+
+
+    async function mintWithDelay(tokenContract: any, recipient: any, amount: any, ticker: any) {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // 1000 milliseconds = 1 second
+      await tokenContract.mint(recipient, amount);
+      console.log(`Minted ${amount} ${ticker} to ${recipient}`);
+    }
+    await mintWithDelay(tokenContract, "0x898c6F7bD2cDaEfcA404699825efFc841d7eA299", 150, token.ticker);
+    console.log(`Minted ${150} ${token.ticker} to ${"0x898c6F7bD2cDaEfcA404699825efFc841d7eA299"}`);
+    await mintWithDelay(tokenContract, "0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6", 150, token.ticker);
+    console.log(`Minted ${150} ${token.ticker} to ${"0x5Af844dc7E25d782Ee5A6a66BB7f8F737bBabbe6"}`);
+    await mintWithDelay(tokenContract, "0x199d51a2Be04C65f325908911430E6FF79a15ce3", 150, token.ticker);
+    console.log(`Minted ${150} ${token.ticker} to ${"0x199d51a2Be04C65f325908911430E6FF79a15ce3"}`);
+    await mintWithDelay(tokenContract, "0xF41e35e1b3a9C2DA397FA8a13bd1EF7989AB9017", 150, token.ticker);
+    console.log(`Minted ${150} ${token.ticker} to ${"0xF41e35e1b3a9C2DA397FA8a13bd1EF7989AB9017"}`);
   }
 };
 
