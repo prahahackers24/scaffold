@@ -1,7 +1,9 @@
-# 🏗 Donation Appreciation
+# 🫶 Donation Appreciation
 
 <h4 align="center">
-![logo](logo.png)
+  <img src="logo.png" alt="Donation Appreciation" />
+  <br>
+  <br>
   <a href="https://devfolio.co/project/new/donation-appreciation-2259">Devfolio</a> |
   <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
