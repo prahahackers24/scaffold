@@ -74,10 +74,11 @@ We created a unique donation platform that allows new ways of raising funds. The
 
 ### Zircuit - Best Hackathon Project on Zircuit
 
-Deploying in Zircuit was very easy, and also verification of the contracts was very straight forward.
+Deploying in Zircuit was very easy, and also verification of the contracts was very straight forward. Only issue was the frontend intergration. On the Scaffold-ETH 2 starter repo we could integrate almost all chains, but Zircuit wasn't there. We added it manually, and will submit a PR to make it available for future developers.
 
 - [DonationContract.sol on Zircuit](https://explorer.zircuit.com/address/0x310256C0b02B1EF36A537427885E495533c13DeE#code)
 - [PoolBatchSwapTest.sol on Zircuit](https://explorer.zircuit.com/address/0xA54f073Cc3fBAa3091dDAe16cDb5EB550c4a17A8#code)
+- [Adding Zircuit to Frontend](https://github.com/prahahackers24/scaffold/commit/e6d200cef0c30143d6499c39f69efbe6377321ce)
 
 ## Links
 
