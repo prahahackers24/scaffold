@@ -11,13 +11,23 @@ const deployPoolBatchSwapTestAndBatchSwap: DeployFunction = async function (hre:
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  const network = hre.network.name; // Dynamically get the network name
+
+  let pool_manager = ""
+
+  if (network ==  "sepolia") {
+    pool_manager = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"
+
+  }
+
+
   // Deploy PoolBatchSwapTest contract
   console.log('waiting 1 second')
   await new Promise((resolve) => setTimeout(resolve, 25000)); // 1000 milliseconds = 1 second
   console.log('waited 1 second')
   const poolBatchSwapTestDeployment = await deploy("PoolBatchSwapTest", {
     from: deployer,
-    args: [deployer], // Constructor arguments if any
+    args: [pool_manager], // Constructor arguments if any
     log: true,
     autoMine: true,
     
@@ -42,10 +52,8 @@ const deployPoolBatchSwapTestAndBatchSwap: DeployFunction = async function (hre:
   const network = hre.network.name; // Dynamically get the network name
 
   console.log(`PoolBatchSwapTest deployed at: ${poolBatchSwapTestAddress}`);
-  console.log(`BatchSwap deployed at: ${batchSwapAddress}`);
   console.log(`To verify contracts, run:`);
-  console.log(`yarn hardhat verify "${poolBatchSwapTestAddress}" --network ${network} "${deployer}"`);
-  console.log(`yarn hardhat verify "${batchSwapAddress}" --network ${network}`);
+  console.log(`yarn hardhat verify "${poolBatchSwapTestAddress}" --network ${network} "${pool_manager}"`);
 };
 
 export default deployPoolBatchSwapTestAndBatchSwap;

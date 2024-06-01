@@ -6,6 +6,11 @@ import "@openzeppelin/contracts/interfaces/IERC20.sol";
 import { PoolKey } from "../libs/v4-core/src/types/PoolKey.sol";
 import { IHooks } from "../libs/v4-core/src/interfaces/IHooks.sol";
 import { Currency, CurrencyLibrary } from "../libs/v4-core/src/types/Currency.sol";
+import { IPoolManager } from "../libs/v4-core/src/interfaces/IPoolManager.sol";
+import { PoolSwapTest } from "../libs/v4-core/src/test/PoolSwapTest.sol";
+import { PoolBatchSwapTest } from "./PoolBatchSwapTest.sol";
+
+import { TickMath } from "../libs/v4-core/src/libraries/TickMath.sol";
 
 /**
  * A smart contract that allows changing a state variable of the contract and tracking the changes
@@ -14,6 +19,9 @@ import { Currency, CurrencyLibrary } from "../libs/v4-core/src/types/Currency.so
  */
 contract DonationContract {
 	uint nextCampaignId = 0;
+
+	PoolSwapTest swapRouter;
+	PoolBatchSwapTest batchSwapRouter;
 
 	struct Campaign {
 		address campaignOwner;
@@ -42,8 +50,10 @@ contract DonationContract {
 
 	address public batchSwapContract;
 
-	constructor(address _batchSwapContract) {
-		batchSwapContract = _batchSwapContract;
+	constructor(address _batchSwapContract, address _swapRouter) {
+		batchSwapRouter = PoolBatchSwapTest(_swapRouter);
+
+		swapRouter = PoolSwapTest(_swapRouter);
 	}
 
 	// donate
@@ -105,49 +115,90 @@ contract DonationContract {
 		);
 		campaign.isLive = false;
 
-		// Collect token addresses and amounts
 		address[] memory tokenAddresses = campaign.tokenAddresses;
-		uint[] memory tokenAmounts = new uint[](tokenAddresses.length);
-		int256[] memory amountsSpecified = new int256[](tokenAddresses.length);
-		bool[] memory zeroForOnes = new bool[](tokenAddresses.length);
-		bytes[] memory hookData = new bytes[](tokenAddresses.length);
-		PoolKey[] memory keys = new PoolKey[](tokenAddresses.length);
 
+		//
 		for (uint i = 0; i < tokenAddresses.length; i++) {
-			tokenAmounts[i] = campaign.tokenAmounts[tokenAddresses[i]];
-			amountsSpecified[i] = int256(tokenAmounts[i]);
-			zeroForOnes[i] = true; // assuming we are swapping all tokens to goalToken
-			hookData[i] = ""; // assuming no specific hookData is needed
-			// Assuming keys are known and set correctly according to the token addresses involved
-			keys[i] = PoolKey({
+			PoolKey memory key = PoolKey({
 				currency0: Currency.wrap(tokenAddresses[i]),
 				currency1: Currency.wrap(campaign.goalToken),
 				fee: 3000, // TODO what value?
 				hooks: IHooks(address(0)),
 				tickSpacing: 10 // TODO what value?
 			});
+			uint tokenAmount = campaign.tokenAmounts[tokenAddresses[i]];
+			swap(key, int256(tokenAmount), true, "");
 		}
-
-		// Approve the batch swap contract to transfer tokens on behalf of this contract
-		for (uint i = 0; i < tokenAddresses.length; i++) {
-			IERC20(tokenAddresses[i]).approve(
-				batchSwapContract,
-				tokenAmounts[i]
-			);
-		}
-
-		// Call the batchSwap function on the BatchSwap contract
-		(bool success, ) = batchSwapContract.call(
-			abi.encodeWithSignature(
-				"batchSwap((address,address,uint24)[],int256[],bool[],bytes[])",
-				keys,
-				amountsSpecified,
-				zeroForOnes,
-				hookData
-			)
-		);
-		require(success, "Batch swap failed");
 
 		emit CampaignClosed(_campaignId);
+	}
+
+	// UNISWAP FUNCTIONS
+
+	// slippage tolerance to allow for unlimited price impact
+	uint160 public constant MIN_PRICE_LIMIT = TickMath.MIN_SQRT_PRICE + 1;
+	uint160 public constant MAX_PRICE_LIMIT = TickMath.MAX_SQRT_PRICE - 1;
+
+	/// @notice Swap tokens
+	/// @param key the pool where the swap is happening
+	/// @param amountSpecified the amount of tokens to swap. Negative is an exact-input swap
+	/// @param zeroForOne whether the swap is token0 -> token1 or token1 -> token0
+	/// @param hookData any data to be passed to the pool's hook
+	function swap(
+		PoolKey memory key,
+		int256 amountSpecified,
+		bool zeroForOne,
+		bytes memory hookData
+	) internal {
+		IPoolManager.SwapParams memory params = IPoolManager.SwapParams({
+			zeroForOne: zeroForOne,
+			amountSpecified: amountSpecified,
+			sqrtPriceLimitX96: zeroForOne ? MIN_PRICE_LIMIT : MAX_PRICE_LIMIT // unlimited impact
+		});
+
+		// in v4, users have the option to receieve native ERC20s or wrapped ERC6909 tokens
+		// here, we'll take the ERC20s
+		PoolSwapTest.TestSettings memory testSettings = PoolSwapTest
+			.TestSettings({ takeClaims: false, settleUsingBurn: false });
+
+		swapRouter.swap(key, params, testSettings, hookData);
+	}
+
+	/// @notice Swap tokens
+	/// @param keys The pools where the swaps are happening
+	/// @param amountsSpecified The amounts of tokens to swap. Negative is an exact-input swap
+	/// @param zeroForOnes Whether the swaps are token0 -> token1 or token1 -> token0
+	/// @param hookData Any data to be passed to the pool's hook
+	function batchSwap(
+		PoolKey[] memory keys,
+		int256[] memory amountsSpecified,
+		bool[] memory zeroForOnes,
+		bytes[] memory hookData
+	) external payable {
+		require(
+			keys.length == amountsSpecified.length &&
+				amountsSpecified.length == zeroForOnes.length &&
+				zeroForOnes.length == hookData.length,
+			"Array lengths must match"
+		);
+
+		IPoolManager.SwapParams[] memory params = new IPoolManager.SwapParams[](
+			keys.length
+		);
+
+		for (uint256 i = 0; i < keys.length; i++) {
+			params[i] = IPoolManager.SwapParams({
+				zeroForOne: zeroForOnes[i],
+				amountSpecified: amountsSpecified[i],
+				sqrtPriceLimitX96: zeroForOnes[i]
+					? MIN_PRICE_LIMIT
+					: MAX_PRICE_LIMIT
+			});
+		}
+
+		PoolBatchSwapTest.TestSettings memory testSettings = PoolBatchSwapTest
+			.TestSettings({ takeClaims: false, settleUsingBurn: false });
+
+		batchSwapRouter.swap(keys, params, testSettings, hookData);
 	}
 }

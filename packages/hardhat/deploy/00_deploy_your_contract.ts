@@ -22,10 +22,21 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  const network = hre.network.name; // Dynamically get the network name
+
+  let swapRouter = "";
+  let batchSwapRouter = "";
+
+  if (network ==  "sepolia") {
+    swapRouter = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"
+    batchSwapRouter = "0xc021A7Deb4a939fd7E661a0669faB5ac7Ba2D5d6"
+
+  }
+
   await deploy("DonationContract", {
     from: deployer,
     // Contract constructor arguments
-    args: [deployer], // TODO this is incorrect
+    args: [swapRouter, batchSwapRouter], // TODO this is incorrect
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -37,7 +48,6 @@ const deployDonationContract: DeployFunction = async function (hre: HardhatRunti
   const donationContract = await hre.ethers.getContract<Contract>("DonationContract", deployer);
   
   const contractAddress = await donationContract.getAddress();
-  const network = hre.network.name; // Dynamically get the network name
 
   console.log(`yarn hardhat verify "${contractAddress}" --network ${network}`);
 

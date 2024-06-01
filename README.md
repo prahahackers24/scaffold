@@ -44,10 +44,6 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 ### Zircuit - Best Hackathon Project on Zircuit
 
-## Next steps
-
-- Use new AVS to filter on donation creators (only accept legitimate fundraisers)
-
 ## Links
 
 - [Vercel deployment](https://donationappreciation.vercel.app/)
@@ -69,10 +65,18 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 #### Eigenlayer Contract
 
+- [Github AVS Repo](https://github.com/prahahackers24/avs)
+
 #### Uniswap Contracts
 
 - [PoolBatchSwapTest](https://holesky.etherscan.io/address/0xf316bc0Eb4A285a57741BdA7bD93cA23C74Ac929#code)
-- [Swap](https://holesky.etherscan.io/address/0x5F66D360C145738a2F217CfBc95E84e586cabCB8#code)
+
+## Next steps
+
+What can be improved?
+
+- **Cross chain campaigns -** Currently each campaign lives on a single chain. We are investigating the possibility of making campaigns cross-chain. This means executing the swap function on each chain similtaniously. Is it possible to have an EigenLayer AVS that validates data across different chains?
+- **Filter our potential malicious actors -** Use new AVS to filter on donation creators (only accept legitimate fundraisers)
 
 ## Team
 
