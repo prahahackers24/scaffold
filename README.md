@@ -28,7 +28,7 @@ Also we fixed a bug in the Hello World repo, which caused issues when executing 
 
 ### Uniswap Foundation - Hook Features
 
-We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but is a showcase the novel applications of batch swapping that are possible on Uniswap.
+We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap.
 
 ### The Graph - Best New Subgraph
 
@@ -54,9 +54,7 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 - [Github ](https://github.com/prahahackers24/scaffold)
 - [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
 
-### Verified Smart Contracts
-
-#### Donation Contract
+### Donation Contract
 
 - [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
@@ -65,11 +63,11 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 - [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 
-#### Eigenlayer Contract
+### Eigenlayer Contract
 
 - [Github AVS Repo](https://github.com/prahahackers24/avs)
 
-#### Uniswap Contracts
+### Uniswap Contracts
 
 - [PoolBatchSwapTest](https://holesky.etherscan.io/address/0xf316bc0Eb4A285a57741BdA7bD93cA23C74Ac929#code)
 

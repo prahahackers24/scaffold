@@ -15,11 +15,12 @@ import { TickMath } from "../libs/v4-core/src/libraries/TickMath.sol";
 /**
  * A smart contract that allows changing a state variable of the contract and tracking the changes
  * It also allows the owner to withdraw the Ether in the contract
- * @author BuidlGuidl
+ * @author arjanjohan
  */
 contract DonationContract {
 	uint nextCampaignId = 0;
 
+	// Add both the original router and new batchSwapRouter for testing purposes
 	PoolSwapTest swapRouter;
 	PoolBatchSwapTest batchSwapRouter;
 
@@ -56,6 +57,23 @@ contract DonationContract {
 		swapRouter = PoolSwapTest(_swapRouter);
 	}
 
+	// create campaign
+	function createCampaign(
+		string memory _campaignName,
+		address goalToken,
+		uint goalAmount
+	) public {
+		Campaign storage newCampaign = campaigns[nextCampaignId];
+		newCampaign.campaignOwner = msg.sender;
+		newCampaign.isLive = true;
+		newCampaign.campaignName = _campaignName;
+		newCampaign.goalAmount = goalAmount;
+		newCampaign.goalToken = goalToken;
+
+		emit CampaignCreated(nextCampaignId, msg.sender, _campaignName);
+		nextCampaignId++;
+	}
+
 	// donate
 	function donate(
 		address[] memory _tokenAddresses,
@@ -89,23 +107,6 @@ contract DonationContract {
 		);
 	}
 
-	// create campaign
-	function createCampaign(
-		string memory _campaignName,
-		address goalToken,
-		uint goalAmount
-	) public {
-		Campaign storage newCampaign = campaigns[nextCampaignId];
-		newCampaign.campaignOwner = msg.sender;
-		newCampaign.isLive = true;
-		newCampaign.campaignName = _campaignName;
-		newCampaign.goalAmount = goalAmount;
-		newCampaign.goalToken = goalToken;
-
-		emit CampaignCreated(nextCampaignId, msg.sender, _campaignName);
-		nextCampaignId++;
-	}
-
 	// close campaign
 	function closeCampaign(uint _campaignId) public {
 		Campaign storage campaign = campaigns[_campaignId];
@@ -123,16 +124,24 @@ contract DonationContract {
 				// skip goal token
 				continue;
 			}
+			Currency inputCurrency = Currency.wrap(tokenAddresses[i]);
+			Currency outputCurrency = Currency.wrap(campaign.goalToken);
+			bool zeroForOne = true;
+			if (inputCurrency >= outputCurrency) {
+				zeroForOne = false;
+			}
+
 			PoolKey memory key = PoolKey({
-				currency0: Currency.wrap(tokenAddresses[i]),
-				currency1: Currency.wrap(campaign.goalToken),
-				fee: 3000, // TODO what value?
+				currency0: zeroForOne ? inputCurrency : outputCurrency,
+				currency1: zeroForOne ? outputCurrency : inputCurrency,
+				fee: 3000,
 				hooks: IHooks(address(0)),
-				tickSpacing: 10 // TODO what value?
+				tickSpacing: 10
 			});
 			uint tokenAmount = campaign.tokenAmounts[tokenAddresses[i]];
+			if (key.currency0 >= key.currency1) {}
 
-			swap(key, int256(tokenAmount), true);
+			swap(key, int256(tokenAmount), zeroForOne);
 		}
 
 		emit CampaignClosed(_campaignId);
