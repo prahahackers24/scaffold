@@ -1,8 +1,8 @@
 {
-  "holesky": {
+  "sepolia": {
     "DonationContract": {
-      "address": "0x24cE7Bdf867de81e6A910982d658e423ad3DA3C9",
-      "startBlock": 1650063
+      "address": "0x4095001d8d00c2c7f38b659173f9a2f2f1781a16",
+      "startBlock": 6020951
     }
   }
 }
