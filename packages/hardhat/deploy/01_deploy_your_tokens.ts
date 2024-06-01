@@ -35,8 +35,8 @@ const deployTokens: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     const contractAddress = deployment.address;
     const network = hre.network.name;
 
-    const tokenContract = await hre.ethers.getContractAt(token.ticker, contractAddress, deployer);
-    // await tokenContract.approve("0x24cE7Bdf867de81e6A910982d658e423ad3DA3C9", "99999999999999999999999999999");
+    const tokenContract = await hre.ethers.getContract<Contract>(token.ticker, deployer);
+    await tokenContract.approve("0x24cE7Bdf867de81e6A910982d658e423ad3DA3C9", "99999999999999999999999999999");
     // TODO: create uniswap pool
 
     console.log(`Deployed ${token.ticker}  at ${contractAddress} on ${network}`);

@@ -1,9 +1,8 @@
 query CampaignsQuery {{
-  games(first: 5) {
+  campaigns(first: 5) {
     campaignId,
     campaignOwner,
     isLive,
     campaignName
-
   }
 }}
