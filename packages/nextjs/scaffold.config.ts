@@ -1,4 +1,6 @@
 import * as chains from "viem/chains";
+import { zircuit } from "./utils/scaffold-eth/zircuit";
+
 
 export type ScaffoldConfig = {
   targetNetworks: readonly chains.Chain[];
@@ -18,6 +20,7 @@ const scaffoldConfig = {
     // chains.zircuit, // not availble?
     chains.lineaSepolia,
     chains.polygonZkEvmCardona,
+    zircuit
   ],
 
   // The interval at which your front-end polls the RPC servers for new data
