@@ -60,11 +60,14 @@ const CoinsDonationComponent: React.FC = () => {
     <div className="flex flex-col h-full justify-between">
       <div className="card bg-base-100 shadow-xl m-2 p-0 flex-grow">
         
-        {/* //@ts-ignore */}
-        <CoinSelector initialValue={0} maxValue={ GRTAmount ? parseFloat(GRTAmount) : 0} coinName='GRT' onValueChange={handleValueChange} />
-        <CoinSelector initialValue={0} maxValue={OPAmount ? parseInt(formatUnits(OPAmount, 18)) : 0} coinName='OP' onValueChange={handleValueChange} />
-        <CoinSelector initialValue={0} maxValue={MNTAmount ? parseInt(formatUnits(MNTAmount, 18)) : 0} coinName='MNT' onValueChange={handleValueChange} />
-        <CoinSelector initialValue={0} maxValue={MATICAmount ? parseInt(formatUnits(MATICAmount, 18)) : 0} coinName='MATIC' onValueChange={handleValueChange} />
+        {/* @ts-ignore */}
+        <CoinSelector initialValue={0} maxValue={ GRTAmount ? parseInt(GRTAmount) / 1e18 : 0} coinName='GRT' img={'/thegraphlogo.png'} onValueChange={handleValueChange} />
+                {/* @ts-ignore */}
+        <CoinSelector initialValue={0} maxValue={OPAmount ? parseInt(OPAmount) / 1e18 : 0} coinName='OP' img={'/oplogo.png'} onValueChange={handleValueChange} />
+                {/* @ts-ignore */}
+        <CoinSelector initialValue={0} maxValue={MNTAmount ? parseInt(MNTAmount) / 1e18 : 0} coinName='MNT' img={'/mantlelogo.png'} onValueChange={handleValueChange} />
+                {/* @ts-ignore */}
+        <CoinSelector initialValue={0} maxValue={MATICAmount ? parseInt(MATICAmount) / 1e18 : 0} coinName='MATIC' img={'/maticlogo.png'} onValueChange={handleValueChange} />
       </div>
       <button 
         className="btn btn-primary m-4"

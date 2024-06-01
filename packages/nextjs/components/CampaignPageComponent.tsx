@@ -29,36 +29,6 @@ const CampaignPageComponent = ({pageId} : any) => {
     args: [pageId],
   });
 
-  // { name: "USDC", ticker: "USDC" },
-  // { name: "Optimism", ticker: "OP" },
-  // { name: "Mantle", ticker: "MNT" },
-  // { name: "Polygon", ticker: "MATIC" },
-  // { name: "TheGraph", ticker: "GRT" },
-
-  const {data: GRTAmount} = useScaffoldReadContract({
-    contractName: "GRT",
-    functionName: "balanceOf",
-    args: [address]
-  })
-
-  const {data: OPAmount} = useScaffoldReadContract({
-    contractName: "OP",
-    functionName: "balanceOf",
-    args: [address]
-  })
-
-  const {data: MNTAmount} = useScaffoldReadContract({
-    contractName: "MNT",
-    functionName: "balanceOf",
-    args: [address]
-  })
-
-  const {data: MATICAmount} = useScaffoldReadContract({
-    contractName: "MATIC",
-    functionName: "balanceOf",
-    args: [address]
-  })
-
 
 
 

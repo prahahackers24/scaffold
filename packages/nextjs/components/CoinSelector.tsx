@@ -5,9 +5,10 @@ interface CoinSelectorProps {
   maxValue: number;
   coinName: string;
   onValueChange: (coinName: string, value: number) => void;
+  img: string;
 }
 
-const CoinSelector: React.FC<CoinSelectorProps> = ({ initialValue, maxValue, coinName, onValueChange }) => {
+const CoinSelector: React.FC<CoinSelectorProps> = ({ initialValue, maxValue, coinName, onValueChange, img }) => {
   const [value, setValue] = useState<number>(initialValue);
   const [progress, setProgress] = useState<number>((initialValue / maxValue) * 100);
 
@@ -27,7 +28,7 @@ const CoinSelector: React.FC<CoinSelectorProps> = ({ initialValue, maxValue, coi
   return (
     <div className="flex items-center space-x-4 p-4">
       <div className="flex items-center space-x-2">
-        <img src="/ethlogo.png" alt={coinName} className="w-8 h-8 rounded-full" />
+        <img src={`${img}`} alt={coinName} className="w-8 h-8 rounded-full" />
         <div className="grid grid-cols-1">
           <span className="text-lg font-semibold">{maxValue.toFixed(2)}</span>
           <span className="text-lg font-light">{coinName}</span>
