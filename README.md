@@ -85,11 +85,13 @@ Deploying in Zircuit was very easy, and also verification of the contracts was v
 
 - [Vercel deployment](https://donationappreciation.vercel.app/)
 - [Devfolio project](https://devfolio.co/project/new/donation-appreciation-2259)
-- [Presentation slides]()
+- [Presentation slides](https://docs.google.com/presentation/d/1p5cFmmLIXDnmSeTd0cXsaEEOcuNP6fbQLGf-Eog11BU/edit?usp=sharing)
 - [Demo video]()
 - [Github dApp repo](https://github.com/prahahackers24/scaffold)
 - [Github AVS repo](https://github.com/prahahackers24/AVS-PRAGUE)
 - [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
+- [DonationContract.sol on Sepolia](https://sepolia.etherscan.io/address/0x4095001d8d00c2c7f38b659173f9a2f2f1781a16)
+- [PoolBatchSwapTest.sol on Sepolia](0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34)
 
 ## Next steps
 
