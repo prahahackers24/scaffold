@@ -14,14 +14,14 @@ const Campaigns = () => {
 
 
 
-  const APIURL = 'https://api.studio.thegraph.com/query/72991/donation/version/latest'
+  const APIURL = 'https://api.studio.thegraph.com/query/77157/donations/v0.0.2'
 
 const tokensQuery = `
-query CampaignsQuery {
-  campaigns(first: 20) {
-    campaignId,
-    campaignOwner,
-    isLive,
+query {
+  campaignCreateds(first: 5) {
+    id
+    campaignId
+    campaignOwner
     campaignName
   }
 }
@@ -40,7 +40,7 @@ useEffect(() => {
         query: gql(tokensQuery),
         fetchPolicy: 'no-cache',
       });
-      setCampaigns(data.campaigns);
+      setCampaigns(data.campaignCreateds);
     } catch (err) {
       console.log('Error fetching data: ', err);
     }

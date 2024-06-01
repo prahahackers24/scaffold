@@ -20,20 +20,9 @@ type DonationReceived @entity(immutable: true) {
   id: Bytes!
   campaignId: BigInt! # uint256
   donor: Bytes! # address
-  tokenAddresses: [Bytes!]! # address[]
+  # tokenAddresses: [Bytes!]! # address[]
   tokenAmounts: [BigInt!]! # uint256[]
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
-}
-
-type Campaign @entity {
-  id: Bytes!
-  campaignId: BigInt! # uint256
-  campaignOwner: Bytes! # address
-  isLive: Boolean!
-  campaignName: String! # string
-  # tokenAddresses: [Bytes!]! # address[]
-  # tokenAmounts: [BigInt!]! # uint256[]
-  # TODO: Better to store tokens as mapping?
 }

@@ -3,6 +3,7 @@ import CardWithProgress from './CardWithProgress'
 import CoinsDonationComponent from './CoinsDonationComponent'
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
 import { parseEther } from 'viem';
+import { useAccount } from 'wagmi';
 
 
 
@@ -18,6 +19,7 @@ const CampaignPageComponent = ({pageId} : any) => {
 
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const campaignId = 1; // Replace with the actual campaign ID you want to query
+  const {address} = useAccount();
 
   
 
@@ -26,6 +28,8 @@ const CampaignPageComponent = ({pageId} : any) => {
     functionName: "campaigns",
     args: [pageId],
   });
+
+
 
 
   useEffect(() => {

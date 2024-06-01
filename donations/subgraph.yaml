@@ -8,9 +8,9 @@ dataSources:
     name: DonationContract
     network: sepolia
     source:
-      address: "0xd18626dcBeFe2fc77ce38c9Da3D07EB1B8d55649"
+      address: "0x015c05c99467aca9eb8313bFe836c75067C01ce8"
       abi: DonationContract
-      startBlock: 6017464
+      startBlock: 6019786
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

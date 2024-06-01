@@ -1,19 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-// Useful for debugging. Remove when deploying to a live network.
-// import "hardhat/console.sol";
-
-// Use openzeppelin to inherit battle-tested implementations (ERC20, ERC721, etc)
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
+import { PoolKey } from "../libs/v4-core/src/types/PoolKey.sol";
+import { IHooks } from "../libs/v4-core/src/interfaces/IHooks.sol";
+import { Currency, CurrencyLibrary } from "../libs/v4-core/src/types/Currency.sol";
+import { IPoolManager } from "../libs/v4-core/src/interfaces/IPoolManager.sol";
+import { PoolSwapTest } from "../libs/v4-core/src/test/PoolSwapTest.sol";
+import { PoolBatchSwapTest } from "./PoolBatchSwapTest.sol";
+import { TickMath } from "../libs/v4-core/src/libraries/TickMath.sol";
 
 /**
- * A smart contract that allows changing a state variable of the contract and tracking the changes
- * It also allows the owner to withdraw the Ether in the contract
- * @author BuidlGuidl
+ * A smart contract that allows creating and managing donation campaigns.
+ * It also allows the owner to swap donated tokens to the goal token and withdraw the Ether in the contract.
+ * @author arjanjohan
  */
 contract DonationContract {
-	uint nextCampaignId = 0;
+	uint public nextCampaignId = 0;
+
+	PoolSwapTest public swapRouter;
+	PoolBatchSwapTest public batchSwapRouter;
 
 	struct Campaign {
 		address campaignOwner;
@@ -21,7 +27,8 @@ contract DonationContract {
 		string campaignName;
 		uint goalAmount;
 		address goalToken;
-		mapping(address => uint) tokenAmounts; // mapping to keep track of donated tokens & amounts
+		mapping(address => uint) tokenAmounts;
+		address[] tokenAddresses;
 	}
 
 	mapping(uint => Campaign) public campaigns;
@@ -39,39 +46,25 @@ contract DonationContract {
 		uint[] tokenAmounts
 	);
 
-	//donate
-	function donate(
-		address[] memory _tokenAddresses,
-		uint[] memory _tokenAmounts,
-		uint _campaignId
-	) public {
-		Campaign storage campaign = campaigns[_campaignId];
-		require(campaign.isLive, "Campaign is not live");
-		require(
-			_tokenAddresses.length == _tokenAmounts.length,
-			"Array length mismatch"
-		);
-		require(_tokenAddresses.length > 0, "No tokens to donate");
+	uint160 public constant MIN_PRICE_LIMIT = TickMath.MIN_SQRT_PRICE + 1;
+	uint160 public constant MAX_PRICE_LIMIT = TickMath.MAX_SQRT_PRICE - 1;
 
-		for (uint i = 0; i < _tokenAddresses.length; i++) {
-			IERC20 token = IERC20(_tokenAddresses[i]);
-			token.transferFrom(
-				msg.sender,
-				address(this), // Tokens are transferred to this contract address
-				_tokenAmounts[i]
-			);
-			campaign.tokenAmounts[_tokenAddresses[i]] += _tokenAmounts[i];
-		}
-
-		emit DonationReceived(
-			_campaignId,
-			msg.sender,
-			_tokenAddresses,
-			_tokenAmounts
-		);
+	/**
+	 * @dev Constructor initializes the contract with the provided batchSwapContract and swapRouter addresses.
+	 * @param _batchSwapContract The address of the batch swap contract.
+	 * @param _swapRouter The address of the swap router.
+	 */
+	constructor(address _batchSwapContract, address _swapRouter) {
+		batchSwapRouter = PoolBatchSwapTest(_batchSwapContract);
+		swapRouter = PoolSwapTest(_swapRouter);
 	}
 
-	//create campaign
+	/**
+	 * @dev Create a new donation campaign.
+	 * @param _campaignName The name of the campaign.
+	 * @param goalToken The address of the token in which the goal amount is set.
+	 * @param goalAmount The target amount of the campaign in the goal token.
+	 */
 	function createCampaign(
 		string memory _campaignName,
 		address goalToken,
@@ -88,7 +81,48 @@ contract DonationContract {
 		nextCampaignId++;
 	}
 
-	//close campaign
+	/**
+	 * @dev Donate to a specific campaign with multiple tokens.
+	 * @param _tokenAddresses Array of token addresses to donate.
+	 * @param _tokenAmounts Array of amounts corresponding to each token address.
+	 * @param _campaignId The ID of the campaign to donate to.
+	 */
+	function donate(
+		address[] memory _tokenAddresses,
+		uint[] memory _tokenAmounts,
+		uint _campaignId
+	) public {
+		Campaign storage campaign = campaigns[_campaignId];
+		require(campaign.isLive, "Campaign is not live");
+		require(
+			_tokenAddresses.length == _tokenAmounts.length,
+			"Array length mismatch"
+		);
+		require(_tokenAddresses.length > 0, "No tokens to donate");
+
+		for (uint i = 0; i < _tokenAddresses.length; i++) {
+			IERC20 token = IERC20(_tokenAddresses[i]);
+			token.transferFrom(msg.sender, address(this), _tokenAmounts[i]);
+			campaign.tokenAmounts[_tokenAddresses[i]] += _tokenAmounts[i];
+
+			// Add token address to the array if it's the first time this token is donated
+			if (campaign.tokenAmounts[_tokenAddresses[i]] == _tokenAmounts[i]) {
+				campaign.tokenAddresses.push(_tokenAddresses[i]);
+			}
+		}
+
+		emit DonationReceived(
+			_campaignId,
+			msg.sender,
+			_tokenAddresses,
+			_tokenAmounts
+		);
+	}
+
+	/**
+	 * @dev Close a campaign and perform token swaps to convert all donated tokens to the goal token.
+	 * @param _campaignId The ID of the campaign to close.
+	 */
 	function closeCampaign(uint _campaignId) public {
 		Campaign storage campaign = campaigns[_campaignId];
 		require(
@@ -97,6 +131,119 @@ contract DonationContract {
 		);
 		campaign.isLive = false;
 
+		address[] memory tokenAddresses = campaign.tokenAddresses;
+
+		for (uint i = 0; i < tokenAddresses.length; i++) {
+			if (tokenAddresses[i] == campaign.goalToken) {
+				// skip goal token
+				continue;
+			}
+			Currency inputCurrency = Currency.wrap(tokenAddresses[i]);
+			Currency outputCurrency = Currency.wrap(campaign.goalToken);
+			bool zeroForOne = inputCurrency < outputCurrency;
+
+			PoolKey memory key = PoolKey({
+				currency0: zeroForOne ? inputCurrency : outputCurrency,
+				currency1: zeroForOne ? outputCurrency : inputCurrency,
+				fee: 3000,
+				hooks: IHooks(address(0)),
+				tickSpacing: 10
+			});
+
+			uint tokenAmount = campaign.tokenAmounts[tokenAddresses[i]];
+			swap(key, int256(tokenAmount), zeroForOne);
+		}
+
 		emit CampaignClosed(_campaignId);
+	}
+
+	/**
+	 * @dev Internal function to perform a token swap using the swap router.
+	 * @param key The pool key for the swap.
+	 * @param amountSpecified The amount of tokens to swap. Negative for exact-input swap.
+	 * @param zeroForOne Whether the swap is token0 -> token1 (true) or token1 -> token0 (false).
+	 */
+	function swap(
+		PoolKey memory key,
+		int256 amountSpecified,
+		bool zeroForOne
+	) internal {
+		IPoolManager.SwapParams memory params = IPoolManager.SwapParams({
+			zeroForOne: zeroForOne,
+			amountSpecified: -amountSpecified,
+			sqrtPriceLimitX96: zeroForOne ? MIN_PRICE_LIMIT : MAX_PRICE_LIMIT
+		});
+
+		// in v4, users have the option to receieve native ERC20s or wrapped ERC6909 tokens
+		// here, we'll take the ERC20s
+		PoolSwapTest.TestSettings memory testSettings = PoolSwapTest
+			.TestSettings({ takeClaims: false, settleUsingBurn: false });
+
+		bytes memory hookData = new bytes(0);
+		swapRouter.swap(key, params, testSettings, hookData);
+	}
+
+	/**
+	 * @dev Internal function to perform a batch token swap using the batch swap router.
+	 * @param keys Array of pool keys for the swaps.
+	 * @param amountsSpecified Array of amounts of tokens to swap. Negative for exact-input swaps.
+	 * @param zeroForOnes Array of booleans indicating whether each swap is token0 -> token1 (true) or token1 -> token0 (false).
+	 */
+	function batchSwap(
+		PoolKey[] memory keys,
+		int256[] memory amountsSpecified,
+		bool[] memory zeroForOnes
+	) internal {
+		require(
+			keys.length == amountsSpecified.length,
+			"Array lengths must match"
+		);
+
+		IPoolManager.SwapParams[] memory params = new IPoolManager.SwapParams[](
+			keys.length
+		);
+		for (uint i = 0; i < keys.length; i++) {
+			params[i] = IPoolManager.SwapParams({
+				zeroForOne: zeroForOnes[i],
+				amountSpecified: amountsSpecified[i],
+				sqrtPriceLimitX96: zeroForOnes[i]
+					? MIN_PRICE_LIMIT
+					: MAX_PRICE_LIMIT
+			});
+		}
+
+		PoolBatchSwapTest.TestSettings memory testSettings = PoolBatchSwapTest
+			.TestSettings({ takeClaims: false, settleUsingBurn: false });
+
+		bytes memory hookData = new bytes(0);
+		batchSwapRouter.swap(keys, params, testSettings, hookData);
+	}
+
+	/**
+	 * @dev Public function to perform a single token swap for testing purposes.
+	 * @param key The pool key for the swap.
+	 * @param amountSpecified The amount of tokens to swap. Negative for exact-input swap.
+	 * @param zeroForOne Whether the swap is token0 -> token1 (true) or token1 -> token0 (false).
+	 */
+	function makeSwap(
+		PoolKey memory key,
+		int256 amountSpecified,
+		bool zeroForOne
+	) public {
+		swap(key, amountSpecified, zeroForOne);
+	}
+
+	/**
+	 * @dev Public function to perform a batch token swap for testing purposes.
+	 * @param keys Array of pool keys for the swaps.
+	 * @param amountsSpecified Array of amounts of tokens to swap. Negative for exact-input swaps.
+	 * @param zeroForOnes Array of booleans indicating whether each swap is token0 -> token1 (true) or token1 -> token0 (false).
+	 */
+	function makeBatchSwap(
+		PoolKey[] memory keys,
+		int256[] memory amountsSpecified,
+		bool[] memory zeroForOnes
+	) public {
+		batchSwap(keys, amountsSpecified, zeroForOnes);
 	}
 }

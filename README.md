@@ -2,8 +2,8 @@
 
 <h4 align="center">
 ![logo](logo.png)
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
+  <a href="https://devfolio.co/project/new/donation-appreciation-2259">Devfolio</a> |
+  <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
 Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 tokens). A donation campaign is registered in the smart contract, and it determines a runtime and USDC target for the donation. When the donation hits the target (in USDC), UniSwap hooks are used to swap all tokens for USDC, before transferring the USDC to the donation recipient address. To check if the donation ERC20 holdings are greater than the donation target before swapping, we create an EigenLayer AVS to verify this.
@@ -28,6 +28,8 @@ Also we fixed a bug in the Hello World repo, which caused issues when executing 
 
 ### Uniswap Foundation - Hook Features
 
+We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap.
+
 ### The Graph - Best New Subgraph
 
 To query campaigns we created a subgraph that qustores eries newly created campaigns as Campaign entities. When donations are made or the campaign is closed, the Campaign entity is updated. We use the subgraph to query campaigns and show them on the overview page. Also we query individual campaigns to show the donation status and amounts on the campaign page.
@@ -44,22 +46,19 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 
 ### Zircuit - Best Hackathon Project on Zircuit
 
-## Next steps
-
-- Use new AVS to filter on donation creators (only accept legitimate fundraisers)
-
 ## Links
 
 - [Vercel deployment](https://donationappreciation.vercel.app/)
+- [Devfolio project](https://devfolio.co/project/new/donation-appreciation-2259)
 - [Presentation slides]()
 - [Demo video]()
-- [Github ](https://github.com/prahahackers24/scaffold)
+- [Github dApp repo](https://github.com/prahahackers24/scaffold)
+- [Github AVS repo](https://github.com/prahahackers24/scaffold)
 - [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
 
-### Verified Smart Contracts
+### Donation Contract
 
-#### Donation contract
-
+- [Smart contract on Sepolia](https://sepolia.etherscan.io/address/0x015c05c99467aca9eb8313bFe836c75067C01ce8#code)
 - [Smart contract on Holesky](https://holesky.etherscan.io/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Linea Testnet](https://sepolia.lineascan.build/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
@@ -67,7 +66,20 @@ To query campaigns we created a subgraph that qustores eries newly created campa
 - [Smart contract on Polygon Cardona](https://cardona-zkevm.polygonscan.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 - [Smart contract on Zircuit](https://explorer.zircuit.com/address/0x3B89a9D1026E29c7959154E5c826159C720007cb)
 
-#### Eigenlayer Smart Contracts
+### Eigenlayer Contract
+
+- [Github AVS Repo](https://github.com/prahahackers24/avs)
+
+### Uniswap Contracts
+
+- [PoolBatchSwapTest](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
+
+## Next steps
+
+What can be improved?
+
+- **Cross-chain campaigns -** Currently, each campaign lives on a single chain. We are investigating the possibility of making campaigns cross-chain. This means executing the swap function on each chain simultaneously. Is it possible to have an EigenLayer AVS that validates data across different chains?
+- **Filter out potential malicious actors -** Use new AVS to filter donation creators (only accept legitimate fundraisers).
 
 ## Team
 
