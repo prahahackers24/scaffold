@@ -36,25 +36,33 @@ export const Card: React.FC<CardProps> = ({ imgSrc, title, description, isLive, 
     },
    }
 
-  return (
+   return (
     <div className="card bg-base-100 shadow-xl m-2 p-0">
-      <figure>
-              {/* @ts-ignore */}
-        <img src={imageAndTitleMapping[campaignId].imgSrc} alt="Shoes" />
+      <figure className="w-full h-48 overflow-hidden">
+        {/* @ts-ignore */}
+        <img src={imageAndTitleMapping[campaignId].imgSrc} alt="Shoes" className="w-full h-full object-cover" />
       </figure>
       <div className="card-body p-4">
-      {/* @ts-ignore */}
-        <h2 className="card-title text-md">{ imageAndTitleMapping[campaignId].title.length > 32 ? imageAndTitleMapping[campaignId].title.slice(0,32) + '...' :imageAndTitleMapping[campaignId].title }</h2>
+        {/* @ts-ignore */}
+        <h2 className="card-title text-md">
+             {/* @ts-ignore */}
+          {imageAndTitleMapping[campaignId].title.length > 21
+          
+            ? 
+            
+            imageAndTitleMapping[campaignId].title.slice(0, 21) + '...'
+            : imageAndTitleMapping[campaignId].title}
+        </h2>
         <p className="text-sm">{description}</p>
-        
+  
         <div className="flex flex-row text-sm opacity-50">
-        <p>{'Owner: '}</p>
-        <Address  address={campaignOwner} size={"sm"}/>
+          <p>{'Owner: '}</p>
+          <Address address={campaignOwner} size={"sm"} />
         </div>
-        
+  
         <div className="card-actions justify-center">
           <Link href={`/campaign/${campaignId}`}>
-          <button className="btn btn-primary">Donate Now!</button>
+            <button className="btn btn-primary">Donate Now!</button>
           </Link>
         </div>
       </div>
