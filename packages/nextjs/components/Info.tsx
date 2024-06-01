@@ -97,9 +97,29 @@ export const Info = () => {
         </div>
       </div>
 
+      <h3 className="text-xl font-bold  mt-12 mb-4">Available on</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-2">
+        <div className="flex justify-center items-center p-2 h-24 bg-white rounded-lg shadow">
+          <img src="./net_linea.png" alt="Logo 1" className="w-28 object-contain" />
+        </div>
+        <div className="flex justify-center items-center p-2 h-24 bg-white rounded-lg shadow">
+          <img src="./net_mantle.webp" alt="Logo 2" className="w-32 object-contain" />
+        </div>
+        <div className="flex justify-center items-center p-2 h-24 bg-white rounded-lg shadow">
+          <img src="././net_op.png" alt="Logo 3" className="w-32 object-contain" />
+        </div>
+        <div className="flex justify-center items-center p-0 h-24 bg-white rounded-lg shadow">
+          <img src="./net_poly.webp" alt="Logo 4" className="w-40 object-contain" />
+        </div>
+        <div className="flex justify-center items-center p-0 h-24 bg-white rounded-lg shadow">
+          <img src="./net_zircuit.webp" alt="Logo 4" className="w-32 object-contain" />
+        </div>
+      </div>
+      
       {/* Built by at at */}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-8 p-2">
+      <div className="flex flex-row justify-between gap-8 p-2">
+        
         <div className="flex flex-col justify-left items-left p-2">
           <h3 className="text-xl font-bold  mt-12 mb-4">Team</h3>
           <ul>
@@ -124,7 +144,7 @@ export const Info = () => {
         <div className="flex flex-col justify-left items-left p-2">
           <h3 className="text-xl font-bold  mt-12 mb-4">Source Code</h3>
           <a href="https://github.com/prahahackers24/scaffold">
-          <img src="./github.png" alt="Logo 1" className="h-16 max-w-full object-contain" />
+          <img src="./github.png" alt="Logo 1" className="w-32 object-contain" />
           </a>
         </div>
 
@@ -132,7 +152,7 @@ export const Info = () => {
           <h3 className="text-xl font-bold  mt-12 mb-4">Build at</h3>
           <div className="rounded-full overflow-hidden">
             <a href="https://ethprague.com//">
-            <img src="./ethprague.jpeg" alt="Logo 4" className="h-16 max-w-full object-contain" />
+            <img src="./ethprague.jpeg" alt="Logo 4" className="w-16 object-contain" />
             </a>
           </div>
           
