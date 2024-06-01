@@ -6,7 +6,8 @@
     "packages": [
       "packages/hardhat",
       "packages/nextjs",
-      "packages/subgraph"
+      "packages/subgraph",
+      "packages/subgraph-sepolia"
     ]
   },
   "scripts": {

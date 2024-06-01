@@ -20,7 +20,7 @@ type DonationReceived @entity(immutable: true) {
   id: Bytes!
   campaignId: BigInt! # uint256
   donor: Bytes! # address
-  tokenAddresses: [Bytes!]! # address[]
+  # tokenAddresses: [Bytes!]! # address[]
   tokenAmounts: [BigInt!]! # uint256[]
   blockNumber: BigInt!
   blockTimestamp: BigInt!
