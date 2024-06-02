@@ -28,7 +28,7 @@ We created our own Eigenlayer AVS to verify the total value of the donated ERC20
 
 Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this. Also we added 1 additional step in the readme, to help people get started more easily.
 
-- [Github AVS Repo](https://github.com/prahahackers24/avs)
+- [Github AVS repo](https://github.com/prahahackers24/AVS-PRAGUE)
 - [Bugfix](https://github.com/prahahackers24/avs/blob/7d30dc0bf0a3b245a19f2d82a340e2b9ca9a2a0d/Makefile#L49-L52)
 - [Readme update](https://github.com/prahahackers24/avs/blob/7d30dc0bf0a3b245a19f2d82a340e2b9ca9a2a0d/README.md?plain=1#L27)
 
@@ -54,7 +54,7 @@ Smart contract deployed and verified here:
 
 ### Mantle - Best DeFi project
 
-We created a unique batch swap feature to make our donation dApp more gas efficient. This batch swap feature is a seperate smart contract, that can be used for many novel applications.
+We created a unique batch swap feature to make our donation dApp more gas efficient. This batch swap feature is a seperate smart contract, that can be used for many novel applications. Both our DonationContgract and PoolBatchSwapTeset are deployed on Mantle.
 
 - [DonationContract.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x77C461C1E180DD6A08A17E74bFb5207e44c7aC7f#code)
 - [PoolBatchSwapTest.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x7868c79421a36a00B0DF2c2C5254aBf89B98eA34#code)
@@ -67,7 +67,7 @@ Creating a fundraising campaign is also a matter of a few clicks. Anyone can sta
 
 ### Optimism - Prototype a Superchain Superpower
 
-The BatchSwap contract can leverage new usecases, such as the Donation Appreciation showcases. The BatchSwap is a gas efficient way to convert your portfolio to stables or ETH with one single transaction.
+The BatchSwap contract can leverage new usecases, such as the Donation Appreciation showcases. The BatchSwap is a gas efficient way to convert your portfolio to stables or ETH with one single transaction. We deployed our donation contract and batch swap contracts to Optimism.
 
 - [DonationContract.sol on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0x64CDeB6CD5ecfB002bdaFabc98B5C883C5C06B27#code)
 - [PoolBatchSwapTest.sol on Optimism Sepolia](https://sepolia-optimism.etherscan.io/address/0xf97379b8768c2bb3CA23413766B1DB6840B551a0#code)
