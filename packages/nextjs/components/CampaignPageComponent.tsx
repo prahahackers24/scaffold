@@ -30,8 +30,8 @@ const CampaignPageComponent = ({pageId} : any) => {
       title: "Legal Defense Fund support for Alexey Pertsev and Roman Storm"
     },
     "3": {
-      imgSrc: "/camp_ukraine.jpeg",
-      title: "We stand with Ukraine"
+      imgSrc: "/dogshelter.jpeg",
+      title: "Dog Shelter Fundraiser"
     },
     "4": {
       imgSrc: "/camp_warming.jpeg",

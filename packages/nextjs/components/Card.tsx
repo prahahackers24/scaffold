@@ -31,8 +31,16 @@ export const Card: React.FC<CardProps> = ({ imgSrc, title, description, isLive, 
       title: "Legal Defense Fund support for Alexey Pertsev and Roman Storm"
     },
     "3": {
-      imgSrc: "/camp_ukraine.jpeg",
-      title: "We stand with Ukraine"
+      imgSrc: "/dogshelter.jpeg",
+      title: "Dog Shelter Fundraiser"
+    },
+    "4": {
+      imgSrc: "/camp_warming.jpeg",
+      title: "Climate Change Fund"
+    },
+    "5": {
+      imgSrc: "/camp_india.jpeg",
+      title: "Education Fund"
     },
    }
 
