@@ -30,8 +30,8 @@ const CampaignPageComponent = ({pageId} : any) => {
       title: "Legal Defense Fund support for Alexey Pertsev and Roman Storm"
     },
     "3": {
-      imgSrc: "/camp_ukraine.jpeg",
-      title: "We stand with Ukraine"
+      imgSrc: "/dogshelter.jpeg",
+      title: "Dog Shelter Fundraiser"
     },
     "4": {
       imgSrc: "/camp_warming.jpeg",
@@ -41,6 +41,36 @@ const CampaignPageComponent = ({pageId} : any) => {
       imgSrc: "/camp_india.jpeg",
       title: "Education Fund"
     },
+    "6": {
+      imgSrc: "/blood.jpg",
+      title: "Blood donation campaign fundraiser"
+    },
+    "7": {
+      imgSrc: "/catshelter.jpeg",
+      title: "Cat Shelter Fundraiser"
+    },
+    "8": {
+      imgSrc: "/clothes.jpeg",
+      title: "Clothes donation campaign fundraiser"
+    },
+    "9": {
+      imgSrc: "/museum.jpeg",
+      title: "Museum Fundraiser"
+    },
+    "10": {
+      imgSrc: "/opensource.png",
+      title: "Open Source Development Fundraiser"
+    },
+    "11": {
+      imgSrc: "/tree.jpg",
+      title: "Plant a tree"
+    },
+    "12": {
+      imgSrc: "/toys.jpg",
+      title: "Fundraiser for children's toys"
+    },
+    
+    
     
    }
 

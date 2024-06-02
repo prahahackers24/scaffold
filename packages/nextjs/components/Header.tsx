@@ -14,23 +14,16 @@ type HeaderMenuLink = {
   icon?: React.ReactNode;
 };
 
-
-
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Home",
     href: "/",
   },
   {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
-  {
     label: "Create Campaign",
     href: "/create-campaign",
     icon: <BanknotesIcon className="h-4 w-4" />,
-  }
+  },
 ];
 
 export const HeaderMenuLinks = () => {
@@ -96,7 +89,7 @@ export const Header = () => {
           )}
         </div>
         <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
-        <div className="block relative w-[150px] h-10">
+          <div className="block relative w-[150px] h-10">
             <Image
               alt="Donation Appreciation logo"
               className="cursor-pointer"
