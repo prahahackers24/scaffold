@@ -66,14 +66,16 @@ Smart contract deployed and verified here:
 - [DonationContract.sol on Linea Testnet](https://sepolia.lineascan.build/address/address/0xf97379b8768c2bb3CA23413766B1DB6840B551a0#code)
 - [PoolBatchSwapTest.sol on Linea Testnet](https://sepolia.lineascan.build/address/address/0x5C0BDa6a6d287dFdC058b86bdaFc7509dB74E111#code)
 
-### Mantle - Best DeFi project
-
-We created a unique batch swap feature to make our donation dApp more gas efficient. This batch swap feature is a seperate smart contract, that can be used for many novel applications. Both our DonationContgract and PoolBatchSwapTeset are deployed on Mantle.
+### Mantle
 
 - [DonationContract.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x77C461C1E180DD6A08A17E74bFb5207e44c7aC7f#code)
 - [PoolBatchSwapTest.sol on Mantle Testnet](https://sepolia.mantlescan.xyz/address/0x7868c79421a36a00B0DF2c2C5254aBf89B98eA34#code)
 
-### Mantle - Best UX/UI project
+#### Mantle - Best DeFi project
+
+We created a unique batch swap feature to make our donation dApp more gas efficient. This batch swap feature is a seperate smart contract, that can be used for many novel applications. Both our DonationContgract and PoolBatchSwapTeset are deployed on Mantle.
+
+#### Mantle - Best UX/UI project
 
 Our donation tool accepts any ERC20 token and multiple ones can be sent in one transaction. This not only saves gas, but is probably the only way to directly donate all the random memecoins or other tokens sitting in our wallets.
 
