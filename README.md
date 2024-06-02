@@ -24,13 +24,13 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 
 ## Screenshots
 
-| Landing Page                                   | Create Campaign                          |
-| ---------------------------------------------- | ---------------------------------------- |
-| ![Landing Page](screenshots/1-landingpage.png) | ![Create Page](screenshots/2-create.png) |
+| Landing Page                   | Create Campaign              |
+| ------------------------------ | ---------------------------- |
+| ![Landing Page](imgs/tech.png) | ![Create Page](imgs/add.png) |
 
-| Campaigns Overview                            | Campaign details                            |
-| --------------------------------------------- | ------------------------------------------- |
-| ![Overview Page](screenshots/3-campaigns.png) | ![details Page](screenshots/4-campaign.png) |
+| Campaigns Overview              | Campaign details                 |
+| ------------------------------- | -------------------------------- |
+| ![Overview Page](imgs/home.png) | ![details Page](imgs/donate.png) |
 
 ## Hackathon tracks
 
