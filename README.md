@@ -4,7 +4,7 @@
   <img src="logo.png" alt="Donation Appreciation" />
   <br>
   <br>
-  <a href="https://devfolio.co/project/new/donation-appreciation-2259">Devfolio</a> |
+  <a href="https://devfolio.co/projects/donation-appreciation-cf9b">Devfolio</a> |
   <a href="https://donationappreciation.vercel.app/">Website</a>
 </h4>
 
@@ -18,9 +18,30 @@ Donation Appreciation is a donation dApp that accepts shitcoins (all ERC20 token
 - 📈 **Multiple ways to hit target**: Reach your donation targets either by new donations or by increase in token price of current donations.
 - 🔐 **Secured with Eigenlayer AVS**: We use a custom EigenLayer AVS to verify the target is reached before swapping all ERC20 tokens to $USDC.
 
+## Diagram
+
+![diagram](diagram.png)
+
+## Screenshots
+
+| Landing Page                                   | Create Campaign                          |
+| ---------------------------------------------- | ---------------------------------------- |
+| ![Landing Page](screenshots/1-landingpage.png) | ![Create Page](screenshots/2-create.png) |
+
+| Campaigns Overview                            | Campaign details                            |
+| --------------------------------------------- | ------------------------------------------- |
+| ![Overview Page](screenshots/3-campaigns.png) | ![details Page](screenshots/4-campaign.png) |
+
 ## Hackathon tracks
 
 ###
+
+### Uniswap Foundation - Track 3: Pool Operators & Research
+
+We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap. We deployed and verified the contract on Sepolia testnet, and included a testfile in a seperate repo (using Foundry).
+
+- [PoolBatchSwapTest Contract on Sepolia](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
+- [Forked Uniswap v4-template with tests for PoolBatchSwapTest ](https://github.com/prahahackers24/uniswap-v4-tests/blob/main/script/03_BatchSwap.s.sol)
 
 ### Eigenlayer - Best use of EigenLayer AVS
 
@@ -29,15 +50,8 @@ We created our own Eigenlayer AVS to verify the total value of the donated ERC20
 Also we fixed a bug in the Hello World repo, which caused issues when executing the make commands. After the hackathon we will submit a PR to the repo for this. Also we added 1 additional step in the readme, to help people get started more easily.
 
 - [Github AVS repo](https://github.com/prahahackers24/AVS-PRAGUE)
-- [Bugfix](https://github.com/prahahackers24/avs/blob/7d30dc0bf0a3b245a19f2d82a340e2b9ca9a2a0d/Makefile#L49-L52)
-- [Readme update](https://github.com/prahahackers24/avs/blob/7d30dc0bf0a3b245a19f2d82a340e2b9ca9a2a0d/README.md?plain=1#L27)
-
-### Uniswap Foundation - Track 3: Pool Operators & Research
-
-We customized the PoolSwapTest.sol to create the PoolBatchSwapTest contract, enabling efficient batch token swaps using the IPoolManager interface. This contract processes multiple swap parameters in a single transaction, making the process more gas-efficient. This solution is not only useful for our platform, but also showcases the novel applications of batch swapping that are possible on Uniswap. We deployed and verified the contract on Sepolia testnet, and included a testfile in a seperate repo (using Foundry).
-
-- [PoolBatchSwapTest Contract on Sepolia](https://sepolia.etherscan.io/address/0x3f1e9D9cfdB1b44feD1769C02C6AE5Bb97aF7E34#code)
-- [Forked Uniswap v4-template with tests for PoolBatchSwapTest ](https://github.com/prahahackers24/uniswap-v4-tests/blob/main/script/03_BatchSwap.s.sol)
+- [Bugfix](https://github.com/prahahackers24/AVS-PRAGUE/blob/fe4c2c893bbc27046006a4c1b04e01d217dad29b/Makefile#L48-L52)
+- [Readme update](https://github.com/prahahackers24/AVS-PRAGUE/blob/fe4c2c893bbc27046006a4c1b04e01d217dad29b/README.md?plain=1#L27)
 
 ### The Graph - Best New Subgraph
 
@@ -61,7 +75,7 @@ We created a unique batch swap feature to make our donation dApp more gas effici
 
 ### Mantle - Best UX/UI project
 
-Our donation tool accepts any ERC20 token and multiple ones can be sent in one transaction. This not only saves gas, but is probably the only way to directly donate all the random memecoins or other tokens sitting in our wallets. 
+Our donation tool accepts any ERC20 token and multiple ones can be sent in one transaction. This not only saves gas, but is probably the only way to directly donate all the random memecoins or other tokens sitting in our wallets.
 
 Creating a fundraising campaign is also a matter of a few clicks. Anyone can start accepting donations in any token, and eventually have them automatically converted to USDC.
 
@@ -90,7 +104,7 @@ Deploying in Zircuit was very easy, and also verification of the contracts was v
 ## Links
 
 - [Vercel deployment](https://donationappreciation.vercel.app/)
-- [Devfolio project](https://devfolio.co/project/new/donation-appreciation-2259)
+- [Devfolio project](https://devfolio.co/projects/donation-appreciation-cf9b)
 - [Presentation slides](https://docs.google.com/presentation/d/1p5cFmmLIXDnmSeTd0cXsaEEOcuNP6fbQLGf-Eog11BU/edit?usp=sharing)
 - [Demo video]()
 - [Github dApp repo](https://github.com/prahahackers24/scaffold)
