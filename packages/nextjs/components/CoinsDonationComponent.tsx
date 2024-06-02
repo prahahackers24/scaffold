@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CoinSelector from './CoinSelector';
 import { useAccount } from 'wagmi';
 import { useScaffoldReadContract, useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
@@ -6,17 +6,20 @@ import { formatUnits, parseEther } from 'viem';
 
 
 
-const CoinsDonationComponent: React.FC = () => {
+const CoinsDonationComponent = ({pageId} : any) => {
   const [coinData, setCoinData] = useState<{ coinName: string, bigIntValue: bigint }[]>([]);
   const [amountarray, setAmountArrays] = useState();
   const {address} = useAccount();
   const { writeContractAsync: writemycontractasync } = useScaffoldWriteContract("DonationContract");
   const {writeContractAsync: writeGRT} = useScaffoldWriteContract("GRT");
-  const {writeContractAsync: writeOP} = useScaffoldWriteContract("OP");
-  const {writeContractAsync: writeMNT} = useScaffoldWriteContract("MNT");
-  const {writeContractAsync: writeMATIC} = useScaffoldWriteContract("MATIC");
+  const {writeContractAsync: writeUSDC} = useScaffoldWriteContract("USDC");
+  const {writeContractAsync: writeUNI} = useScaffoldWriteContract("UNI");
+  const {writeContractAsync: writeEIGEN} = useScaffoldWriteContract("EIGEN");
 
-
+  useEffect(() => {
+    console.log('-----------PAGE ID -----------')
+    console.log(pageId)
+  }, [pageId])
 
    // { name: "USDC", ticker: "USDC" },
   // { name: "Optimism", ticker: "OP" },
@@ -24,26 +27,35 @@ const CoinsDonationComponent: React.FC = () => {
   // { name: "Polygon", ticker: "MATIC" },
   // { name: "TheGraph", ticker: "GRT" },
 
+
+  const contract_address_sepolia = "0x4095001D8d00C2c7f38b659173f9a2F2F1781A16"
+
+  const {data: USDCAmount} = useScaffoldReadContract({
+    contractName: "USDC",
+    functionName: "balanceOf",
+    args: [address]
+  })
+
+  const {data: approval} = useScaffoldReadContract({
+    contractName: "USDC",
+    functionName: "allowance",
+    args: [address, contract_address_sepolia]
+  })
+
   const {data: GRTAmount} = useScaffoldReadContract({
     contractName: "GRT",
     functionName: "balanceOf",
     args: [address]
   })
 
-  const {data: OPAmount} = useScaffoldReadContract({
-    contractName: "OP",
+  const {data: EIGENAmount} = useScaffoldReadContract({
+    contractName: "EIGEN",
     functionName: "balanceOf",
     args: [address]
   })
 
-  const {data: MNTAmount} = useScaffoldReadContract({
-    contractName: "MNT",
-    functionName: "balanceOf",
-    args: [address]
-  })
-
-  const {data: MATICAmount} = useScaffoldReadContract({
-    contractName: "MATIC",
+  const {data: UNIAmount} = useScaffoldReadContract({
+    contractName: "UNI",
     functionName: "balanceOf",
     args: [address]
   });
@@ -52,45 +64,48 @@ const CoinsDonationComponent: React.FC = () => {
     try {
       await writeGRT({
         functionName: "approve",
-        args: ["0xb1b8f7b92144F7af1902D6c55d5069Ca4b3d86b1", GRTAmount]
+        args: ["0x4095001D8d00C2c7f38b659173f9a2F2F1781A16", GRTAmount]
       });
     } catch (e) {
       console.error("Error setting greeting:", e);
     }
 }
 
-async function ApproveOP() {
+async function ApproveUSDC() {
   try {
-    await writeOP({
+    await writeUSDC({
       functionName: "approve",
-      args: ["0xb1b8f7b92144F7af1902D6c55d5069Ca4b3d86b1", OPAmount]
+      args: ["0x4095001D8d00C2c7f38b659173f9a2F2F1781A16", USDCAmount]
     });
   } catch (e) {
     console.error("Error setting greeting:", e);
   }
 }
 
-async function ApproveMNT() {
+async function ApproveEIGEN() {
   try {
-    await writeMNT({
+    await writeEIGEN({
       functionName: "approve",
-      args: ["0xb1b8f7b92144F7af1902D6c55d5069Ca4b3d86b1", MNTAmount]
+      args: ["0x4095001D8d00C2c7f38b659173f9a2F2F1781A16", EIGENAmount]
     });
   } catch (e) {
     console.error("Error setting greeting:", e);
   }
 }
 
-async function ApproveMATIC() {
+async function ApproveUNI() {
   try {
-    await writeMATIC({
+    await writeUNI({
       functionName: "approve",
-      args: ["0xb1b8f7b92144F7af1902D6c55d5069Ca4b3d86b1", MATICAmount]
+      args: ["0x4095001D8d00C2c7f38b659173f9a2F2F1781A16", UNIAmount]
     });
   } catch (e) {
     console.error("Error setting greeting:", e);
   }
 }
+
+
+
 
 
 
@@ -134,13 +149,13 @@ async function ApproveMATIC() {
       <div className="card bg-base-100 shadow-xl m-2 p-0 flex-grow">
         
         {/* @ts-ignore */}
-        <CoinSelector initialValue={0} maxValue={ GRTAmount ? parseInt(GRTAmount) / 1e18 : 0} coinName='GRT' img={'/thegraphlogo.png'} onValueChange={handleValueChange} />
+        <CoinSelector initialValue={0} maxValue={150} coinName='USDC' img={'/usdclogo.png'} onValueChange={handleValueChange} />
                 {/* @ts-ignore */}
-        <CoinSelector initialValue={0} maxValue={OPAmount ? parseInt(OPAmount) / 1e18 : 0} coinName='OP' img={'/oplogo.png'} onValueChange={handleValueChange} />
+        <CoinSelector initialValue={0} maxValue={150} coinName='GRT' img={'/thegraphlogo.png'} onValueChange={handleValueChange} />
                 {/* @ts-ignore */}
-        <CoinSelector initialValue={0} maxValue={MNTAmount ? parseInt(MNTAmount) / 1e18 : 0} coinName='MNT' img={'/mantlelogo.png'} onValueChange={handleValueChange} />
+        <CoinSelector initialValue={0} maxValue={150} coinName='UNI' img={'/uniswaplogo.png'} onValueChange={handleValueChange} />
                 {/* @ts-ignore */}
-        <CoinSelector initialValue={0} maxValue={MATICAmount ? parseInt(MATICAmount) / 1e18 : 0} coinName='MATIC' img={'/maticlogo.png'} onValueChange={handleValueChange} />
+        <CoinSelector initialValue={0} maxValue={150} coinName='EIGEN' img={'/eigenlogo.jpg'} onValueChange={handleValueChange} />
       </div>
       <button 
         className="btn btn-primary m-4"
@@ -149,11 +164,17 @@ async function ApproveMATIC() {
             await writemycontractasync({
               functionName: "donate",
               args:[[
-                "0x83CB329AeaAfA1e87FF0E0dc576Bb13f3914fA97",
-                "0xaEeC496145a30e20B8FBe1c30151d46Cf2cC1e50",
-                "0x4104D9a6258d55A8a958e71b4B7Cb5b6F9c0236C",
-                "0x3a2F4Ae59B2aaa7d2c9e85e9D3a6e0dB5EF6Fb45",
-              ], [coinData[0].bigIntValue, coinData[1].bigIntValue, coinData[2].bigIntValue, coinData[3].bigIntValue], parseEther(`0`)]
+                "0xbe2a7F5acecDc293Bf34445A0021f229DD2Edd49",
+                "0x382658f1DCEB66ab4Df85E376b25e3699D6f1D83",
+                "0xf83b36a40Cb1F0e88A8Ae74cbB2FdcB2670c5e48",
+                "0x80679b7E30bb48aD81f1D5dD3dB2d037054DCf67",
+              ], [
+                coinData[0].bigIntValue,
+               coinData[1].bigIntValue, 
+               coinData[2].bigIntValue, 
+               coinData[3].bigIntValue
+              ],
+                pageId]
             });
           } catch (e) {
             console.log(amountarray)
@@ -167,6 +188,14 @@ async function ApproveMATIC() {
       <div className='grid grid-cols-4'>
       <button 
         className="btn btn-primary m-4"
+        onClick={() => ApproveUSDC()}
+        >
+        Approve USDC
+  
+        </button>
+        
+      <button 
+        className="btn btn-primary m-4"
         onClick={() => ApproveGRT()}
         >
         Approve GRT
@@ -174,23 +203,16 @@ async function ApproveMATIC() {
         
       <button 
         className="btn btn-primary m-4"
-        onClick={() => ApproveOP()}
+        onClick={() => ApproveUNI()}
         >
-        Approve OP
+        Approve UNI
         </button>
         
       <button 
         className="btn btn-primary m-4"
-        onClick={() => ApproveMNT()}
+        onClick={() => ApproveEIGEN()}
         >
-        Approve MNT
-        </button>
-        
-      <button 
-        className="btn btn-primary m-4"
-        onClick={() => ApproveMATIC()}
-        >
-        Approve MATIC
+        Approve EIGEN
         </button>
       </div>
       
