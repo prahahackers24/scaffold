@@ -107,8 +107,8 @@ Deploying in Zircuit was very easy, and also verification of the contracts was v
 
 - [Vercel deployment](https://donationappreciation.vercel.app/)
 - [Devfolio project](https://devfolio.co/projects/donation-appreciation-cf9b)
+- [Demo video](https://www.loom.com/share/bbbcb897d5884ac093273f14c4aaac04)
 - [Presentation slides](https://docs.google.com/presentation/d/1p5cFmmLIXDnmSeTd0cXsaEEOcuNP6fbQLGf-Eog11BU/edit?usp=sharing)
-- [Demo video]()
 - [Github dApp repo](https://github.com/prahahackers24/scaffold)
 - [Github AVS repo](https://github.com/prahahackers24/AVS-PRAGUE)
 - [The Graph Subgraph](https://api.studio.thegraph.com/query/72991/donation/version/latest)
