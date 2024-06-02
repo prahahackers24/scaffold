@@ -65,14 +65,13 @@ export const Info = () => {
 
         <li className="mb-2">
           <span className="">
-            We have built a <b>custom EigenLayer AVS</b> to verify the target is reached before swapping all ERC20
-            tokens to $USDC
+            We have built a <b>custom EigenLayer AVS</b> to verify the total value of the donated ERC20s in a campaign has reached the target target in $USDC.
           </span>
         </li>
 
         <li className="mb-2">
           <span>
-            <b>UniSwap hooks</b> are used to swap all tokens for USDC, before transferring the USDC to the donation
+            <b>UniSwap</b> is used to swap all tokens for USDC, before transferring the USDC to the donation
             recipient address
           </span>
         </li>
